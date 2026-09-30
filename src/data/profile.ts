@@ -20,8 +20,9 @@ export interface Project {
   stack: string[]
   image?: string
   imageDark?: string
-  repo: string
+  repo?: string
   demo?: string
+  note?: string
 }
 
 export const projects: Project[] = [
@@ -71,7 +72,7 @@ export const projects: Project[] = [
       'Interfaz responsive',
     ],
     stack: ['Next.js', 'React', 'TypeScript', 'Firebase', 'Tailwind CSS'],
-    repo: 'https://github.com/calcerritor3000',
+    note: 'Código privado (proyecto de empresa)',
   },
 ]
 
@@ -141,4 +142,11 @@ export const education: TimelineItem[] = [
     period: '2024',
     text: 'Certificación oficial de nivel intermedio.',
   },
+]
+
+export const stats = [
+  { value: '3', label: 'proyectos completos' },
+  { value: '3', label: 'prácticas en empresas' },
+  { value: 'DAM', label: 'ciclo terminado en 2026' },
+  { value: 'B1', label: 'inglés (Trinity)' },
 ]

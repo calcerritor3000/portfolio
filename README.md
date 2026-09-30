@@ -11,20 +11,21 @@ y publicada gratis en GitHub Pages.
 </p>
 
 <p align="center">
-  <img src="docs/screenshots/movil.jpg" width="200" alt="Portfolio en móvil" />
+  <img src="docs/screenshots/movil.jpg" width="220" alt="Portfolio en móvil" />
   <img src="docs/screenshots/oscuro.jpg" width="420" alt="Portfolio en modo oscuro" />
 </p>
 
 ## ✨ Funcionalidades
 
-- **Presentación**: nombre, perfil, disponibilidad y enlaces a GitHub, LinkedIn y email.
+- **Presentación**: hero con tarjeta de código, cifras clave y enlaces a GitHub, LinkedIn y email.
 - **Proyectos**: tarjetas con descripción, puntos clave, tecnologías y enlaces a código y demo.
-  El proyecto destacado (*Mis tareas*) ocupa todo el ancho y muestra una captura que cambia con el tema.
+  El proyecto destacado (*Mis tareas*) ocupa todo el ancho y se muestra en maquetas de móvil, en claro y en oscuro.
 - **Tecnologías** agrupadas por tipo.
 - **Trayectoria**: experiencia y formación en forma de línea de tiempo.
 - **Contacto** directo por email, LinkedIn o GitHub.
 - **Modo claro y oscuro**: sigue la preferencia del sistema y recuerda la elección del usuario.
-- **Responsive** de móvil a escritorio, sin scroll horizontal.
+- **Responsive** de móvil a escritorio, con menú hamburguesa y sin scroll horizontal.
+- **Detalles**: animaciones al hacer scroll (respetan `prefers-reduced-motion`) y navegación que resalta la sección visible.
 
 <p align="center">
   <img src="docs/screenshots/proyectos.jpg" width="640" alt="Sección de proyectos" />

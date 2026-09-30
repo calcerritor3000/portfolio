@@ -13,7 +13,7 @@ export default function App() {
       <Header theme={theme} onToggleTheme={toggle} />
       <main>
         <Hero />
-        <Projects theme={theme} />
+        <Projects />
         <Skills />
         <Journey />
         <Contact />
