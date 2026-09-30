@@ -4,7 +4,7 @@ Mi web personal: quién soy, qué proyectos he hecho y cómo contactarme.
 Es una página de una sola vista, **responsive** y con **modo oscuro**, hecha con **React + TypeScript + Vite**
 y publicada gratis en GitHub Pages.
 
-🔗 **Web:** https://calcerritor3000.github.io/portfolio/
+🔗 **Web:** https://calcerritor3000.github.io/portfolio/ · 📱 **Demo de Mis tareas:** https://gestor-tareas.expo.app/
 
 <p align="center">
   <img src="docs/screenshots/escritorio.jpg" width="640" alt="Portfolio en escritorio" />

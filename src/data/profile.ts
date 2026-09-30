@@ -23,6 +23,7 @@ export interface Project {
   repo?: string
   demo?: string
   note?: string
+  demoLabel?: string
 }
 
 export const projects: Project[] = [
@@ -42,6 +43,8 @@ export const projects: Project[] = [
     image: 'projects/mis-tareas.jpg',
     imageDark: 'projects/mis-tareas-oscuro.jpg',
     repo: 'https://github.com/calcerritor3000/gestor-tareas',
+    demo: 'https://gestor-tareas.expo.app/',
+    demoLabel: 'Probar en el navegador',
   },
   {
     title: 'CVN Alertas',

@@ -10,12 +10,12 @@ function Links({ project }: { project: Project }) {
     <div className="project__links">
       {project.demo && (
         <a href={project.demo} target="_blank" rel="noreferrer" className="btn btn--primary btn--sm">
-          Ver demo <ArrowIcon />
+          {project.demoLabel ?? 'Ver demo'} <ArrowIcon />
         </a>
       )}
       {project.repo && (
         <a href={project.repo} target="_blank" rel="noreferrer" className="btn btn--sm">
-          Código <ArrowIcon />
+          Ver código <ArrowIcon />
         </a>
       )}
       {project.note && <span className="project__note">🔒 {project.note}</span>}
