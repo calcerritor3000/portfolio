@@ -1,5 +1,6 @@
 import { Image, StyleSheet, View, type LayoutChangeEvent } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
+import { Float, Pop } from '../anim'
 import { ArrowIcon } from './Icons'
 import { Button, Card, Chip, openUrl, Reveal, Section, Txt } from './ui'
 import { projects, type Project } from '../data/profile'
@@ -59,8 +60,10 @@ function Body({ project, padding }: { project: Project; padding: number }) {
         ))}
       </View>
       <View style={styles.chips}>
-        {project.stack.map((s) => (
-          <Chip key={s} label={s} />
+        {project.stack.map((s, i) => (
+          <Pop key={s} index={i}>
+            <Chip label={s} />
+          </Pop>
         ))}
       </View>
       <Links project={project} />
@@ -76,20 +79,24 @@ function Featured({ project }: { project: Project }) {
       <View style={[styles.media, { flex: isDesktop ? 0.46 : undefined, height: isMobile ? 330 : 380 }]}>
         <LinearGradient colors={[colors.accentSoft, colors.surface2]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} />
         {project.image && (
-          <Image
-            source={project.image}
-            accessibilityLabel={`${project.title}: modo claro`}
-            resizeMode="cover"
-            style={[styles.phone, { height: isMobile ? 290 : 340, zIndex: 1 }]}
-          />
+          <Float amplitude={10} duration={3000} style={{ zIndex: 1 }}>
+            <Image
+              source={project.image}
+              accessibilityLabel={`${project.title}: modo claro`}
+              resizeMode="cover"
+              style={[styles.phone, { height: isMobile ? 290 : 340 }]}
+            />
+          </Float>
         )}
         {project.imageDark && (
-          <Image
-            source={project.imageDark}
-            accessibilityLabel={`${project.title}: modo oscuro`}
-            resizeMode="cover"
-            style={[styles.phone, styles.phoneBack, { height: isMobile ? 290 : 340 }]}
-          />
+          <Float amplitude={10} duration={3000} delay={900} style={styles.phoneBack}>
+            <Image
+              source={project.imageDark}
+              accessibilityLabel={`${project.title}: modo oscuro`}
+              resizeMode="cover"
+              style={[styles.phone, { height: isMobile ? 290 : 340 }]}
+            />
+          </Float>
         )}
       </View>
       <View style={{ flex: isDesktop ? 0.54 : undefined }}>
@@ -138,7 +145,7 @@ const styles = StyleSheet.create({
     borderColor: '#111827',
     backgroundColor: '#111827',
   },
-  phoneBack: { marginLeft: -24, transform: [{ translateY: 28 }, { rotate: '4deg' }] },
+  phoneBack: { marginLeft: -24, marginBottom: -28, transform: [{ rotate: '4deg' }] },
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 24, marginTop: 24 },
   meta: { flexDirection: 'row', alignItems: 'center', gap: 12, marginBottom: 10 },
   bullet: { flexDirection: 'row' },

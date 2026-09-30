@@ -26,7 +26,9 @@ y publicada gratis con **EAS Hosting**.
 - **Contacto** directo por email, LinkedIn o GitHub.
 - **Modo claro y oscuro**: sigue la preferencia del sistema y recuerda la elección del usuario.
 - **Responsive** de móvil a escritorio, con menú hamburguesa y sin scroll horizontal.
-- **Detalles**: animaciones al hacer scroll (respetan `prefers-reduced-motion`) y navegación que resalta la sección visible.
+- **Pantalla de carga** con una J que se dibuja, inyectada en el HTML para verse al instante, antes de que arranque la app.
+- **Animaciones propias**: título palabra a palabra, código que se escribe línea a línea, contadores, manchas de fondo y móviles flotantes, tarjetas que se elevan al pasar el ratón, chips escalonados y barra de progreso de scroll. Se desactivan con `prefers-reduced-motion`.
+- **Navegación** que resalta la sección visible.
 
 <p align="center">
   <img src="docs/screenshots/proyectos.jpg" width="640" alt="Sección de proyectos" />
@@ -53,17 +55,22 @@ y publicada gratis con **EAS Hosting**.
 - **Mismo stack que mis apps**: el portfolio usa Expo y React Native, igual que *Mis tareas*, así que el mismo código de interfaz podría reutilizarse en móvil.
 - **Tema propio**: un `ThemeProvider` con paletas clara y oscura; sigue al sistema y recuerda la elección en `localStorage`.
 - **Iconos SVG propios** con `react-native-svg`, para no cargar librerías de iconos.
-- **Animaciones ligeras**: los bloques aparecen al entrar en pantalla con `IntersectionObserver` + `Animated`, sin librerías.
+- **Animaciones sin librerías**: todo con `Animated` de React Native y `IntersectionObserver`, reunido en `src/anim.tsx`. Respeta `prefers-reduced-motion`.
+- **Pantalla de carga en el HTML**: como en web la app tarda en arrancar, un script posterior a `expo export` mete en `index.html` una J animada en CSS puro, así se ve desde el primer instante.
 - **Despliegue con un comando**: `npm run deploy` exporta la web y la publica con EAS Hosting.
 
 ## 📁 Estructura
 
 ```
 ├── docs/screenshots/              # Capturas para este README
-├── assets/                        # Favicon e imágenes de proyectos
+├── assets/                        # Favicon PNG e imágenes de proyectos
+├── public/favicon.svg             # Favicon en SVG (la J)
+├── scripts/inject-preloader.js    # Inserta la pantalla de carga en dist/index.html
 └── src/
     ├── components/                # Header, Hero, Projects, Skills, Journey, Contact, ui…
     ├── data/profile.ts            # Datos personales, proyectos, tecnologías y trayectoria
+    ├── anim.tsx                   # Sistema de animaciones: Appear, Reveal, Float, Blob, CountUp…
+    ├── preloader.ts               # Retira la pantalla de carga
     ├── theme.tsx                  # Paletas, modo claro/oscuro y tamaños de pantalla
     └── App.tsx                    # Composición de la página y navegación
 ```
@@ -84,7 +91,7 @@ Otros comandos:
 ```bash
 npm run lint         # ESLint
 npm run typecheck    # comprobación de tipos
-npm run build        # exporta la web a dist/
+npm run build        # exporta la web a dist/ e inyecta la pantalla de carga
 npm run deploy       # exporta y publica en EAS Hosting (requiere npx eas-cli login)
 ```
 

@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import {
   Animated,
+  Easing,
   Linking,
-  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -14,7 +14,10 @@ import {
   type ViewStyle,
 } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
+import { Reveal } from '../anim'
 import { font, MAX_WIDTH, useLayout, useTheme } from '../theme'
+
+export { Reveal }
 
 type Weight = 'regular' | 'medium' | 'semibold' | 'bold' | 'extrabold'
 
@@ -116,67 +119,31 @@ export function Chip({ label, accent }: { label: string; accent?: boolean }) {
   )
 }
 
-export function Card({ children, style }: { children: ReactNode; style?: StyleProp<ViewStyle> }) {
+const APressable = Animated.createAnimatedComponent(Pressable)
+
+/** Tarjeta que se eleva suavemente al pasar el ratón por encima. */
+export function Card({ children, style, lift = 6 }: { children: ReactNode; style?: StyleProp<ViewStyle>; lift?: number }) {
   const { colors } = useTheme()
+  const [v] = useState(() => new Animated.Value(0))
+  const to = (toValue: number) => Animated.timing(v, { toValue, duration: 220, easing: Easing.out(Easing.cubic), useNativeDriver: false }).start()
   return (
-    <View
+    <APressable
+      accessible={false}
+      focusable={false}
+      onHoverIn={() => to(1)}
+      onHoverOut={() => to(0)}
       style={[
         styles.card,
-        { backgroundColor: colors.surface, borderColor: colors.border, shadowColor: colors.shadow },
+        { backgroundColor: colors.surface, shadowColor: colors.shadow },
+        {
+          borderColor: v.interpolate({ inputRange: [0, 1], outputRange: [colors.border, colors.accent] }),
+          transform: [{ translateY: v.interpolate({ inputRange: [0, 1], outputRange: [0, -lift] }) }],
+        },
         style,
       ]}
     >
       {children}
-    </View>
-  )
-}
-
-interface IntersectionLike {
-  observe(el: unknown): void
-  disconnect(): void
-}
-
-/** Aparece con una animación suave al entrar en pantalla (en web). */
-export function Reveal({ children, delay = 0, style }: { children: ReactNode; delay?: number; style?: StyleProp<ViewStyle> }) {
-  const ref = useRef<View>(null)
-  const [progress] = useState(() => new Animated.Value(Platform.OS === 'web' ? 0 : 1))
-  const [shown, setShown] = useState(false)
-
-  useEffect(() => {
-    const IO = (globalThis as { IntersectionObserver?: new (cb: (e: { isIntersecting: boolean }[]) => void, o: object) => IntersectionLike })
-      .IntersectionObserver
-    if (Platform.OS !== 'web' || !IO || !ref.current) {
-      progress.setValue(1)
-      return
-    }
-    const observer = new IO(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          setShown(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.1 },
-    )
-    observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [progress])
-
-  useEffect(() => {
-    if (!shown) return
-    Animated.timing(progress, { toValue: 1, duration: 650, delay, useNativeDriver: false }).start()
-  }, [shown, delay, progress])
-
-  return (
-    <Animated.View
-      ref={ref}
-      style={[
-        style,
-        { opacity: progress, transform: [{ translateY: progress.interpolate({ inputRange: [0, 1], outputRange: [24, 0] }) }] },
-      ]}
-    >
-      {children}
-    </Animated.View>
+    </APressable>
   )
 }
 

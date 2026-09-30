@@ -1,5 +1,6 @@
 import { StyleSheet, View, type LayoutChangeEvent } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
+import { Blob } from '../anim'
 import { GitHubIcon, LinkedInIcon, MailIcon } from './Icons'
 import { Button, Container, openUrl, Reveal, Txt } from './ui'
 import { profile } from '../data/profile'
@@ -10,8 +11,10 @@ export function Contact({ onLayout }: { onLayout: (id: string, e: LayoutChangeEv
   return (
     <View onLayout={(e) => onLayout('contacto', e)}>
       <Container style={{ paddingTop: isMobile ? 56 : 80 }}>
-        <Reveal>
+        <Reveal dir="scale">
           <LinearGradient colors={['#3b3bd6', '#5b5bf0', '#2563eb']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.box}>
+              <Blob size={300} color="rgba(34,211,238,0.45)" top={-90} right={-60} drift={40} />
+              <Blob size={260} color="rgba(167,139,250,0.4)" bottom={-90} left={-60} drift={36} duration={11000} />
             <Txt size={isMobile ? 28 : 40} weight="extrabold" color="#fff" style={{ textAlign: 'center', letterSpacing: -1, lineHeight: isMobile ? 34 : 46 }}>
               ¿Trabajamos juntos?
             </Txt>

@@ -11,8 +11,8 @@ function Timeline({ title, items }: { title: string; items: TimelineItem[] }) {
         {title}
       </Txt>
       <View style={[styles.line, { borderLeftColor: colors.border }]}>
-        {items.map((i) => (
-          <View key={i.title + i.period} style={styles.item}>
+        {items.map((i, n) => (
+          <Reveal key={i.title + i.period} dir="left" distance={30} delay={n * 140} style={styles.item}>
             <View style={[styles.marker, { backgroundColor: colors.accent, borderColor: colors.bg }]} />
             <Txt size={12.5} weight="bold" color={colors.accent}>
               {i.period}
@@ -26,7 +26,7 @@ function Timeline({ title, items }: { title: string; items: TimelineItem[] }) {
             <Txt size={15} muted>
               {i.text}
             </Txt>
-          </View>
+          </Reveal>
         ))}
       </View>
     </Reveal>

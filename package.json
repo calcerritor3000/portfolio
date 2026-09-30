@@ -7,8 +7,8 @@
     "start": "expo start --web",
     "lint": "expo lint",
     "typecheck": "tsc --noEmit",
-    "build": "expo export --platform web",
-    "deploy": "expo export --platform web && eas deploy --prod"
+    "build": "expo export --platform web && node scripts/inject-preloader.js",
+    "deploy": "npm run build && npx eas-cli@latest deploy --prod"
   },
   "dependencies": {
     "@expo-google-fonts/inter": "^0.4.2",

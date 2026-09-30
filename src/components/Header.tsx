@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
 import { CloseIcon, MenuIcon, MoonIcon, SunIcon } from './Icons'
+import { Appear, ReadyContext } from '../anim'
 import { Container, Txt } from './ui'
 import { useLayout, useTheme } from '../theme'
 
@@ -20,6 +21,7 @@ export function Header({ active, onNavigate }: Props) {
   const { colors, mode, toggle } = useTheme()
   const { isMobile } = useLayout()
   const [open, setOpen] = useState(false)
+  const ready = useContext(ReadyContext)
 
   const go = (id: string) => {
     setOpen(false)
@@ -38,7 +40,7 @@ export function Header({ active, onNavigate }: Props) {
   )
 
   return (
-    <View style={[styles.header, { backgroundColor: colors.bg, borderBottomColor: colors.border }]}>
+    <Appear show={ready} dir="down" distance={70} style={[styles.header, { backgroundColor: colors.bg, borderBottomColor: colors.border }]}>
       <Container style={styles.row}>
         <Pressable accessibilityRole="link" onPress={() => go('inicio')}>
           <Txt size={21} weight="extrabold" style={{ letterSpacing: -0.5 }}>
@@ -88,7 +90,7 @@ export function Header({ active, onNavigate }: Props) {
           ))}
         </View>
       )}
-    </View>
+    </Appear>
   )
 }
 

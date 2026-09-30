@@ -1,4 +1,5 @@
 import { StyleSheet, View, type LayoutChangeEvent } from 'react-native'
+import { Pop } from '../anim'
 import { Card, Chip, Reveal, Section, Txt } from './ui'
 import { skills } from '../data/profile'
 
@@ -13,8 +14,10 @@ export function Skills({ onLayout }: { onLayout: (id: string, e: LayoutChangeEve
                 {g.group}
               </Txt>
               <View style={styles.chips}>
-                {g.items.map((s) => (
-                  <Chip key={s} label={s} />
+                {g.items.map((s, j) => (
+                  <Pop key={s} index={j} step={55}>
+                    <Chip label={s} />
+                  </Pop>
                 ))}
               </View>
             </Card>
