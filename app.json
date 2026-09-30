@@ -1,0 +1,28 @@
+{
+  "expo": {
+    "name": "Jorge Calcerrada · Desarrollador",
+    "slug": "jorge-calcerrada",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "platforms": [
+      "web"
+    ],
+    "web": {
+      "output": "single",
+      "favicon": "./assets/favicon.png",
+      "name": "Jorge Calcerrada · Desarrollador",
+      "shortName": "Jorge C.",
+      "description": "Portfolio de Jorge Calcerrada Sánchez-Mateos, desarrollador de aplicaciones multiplataforma (DAM) en Valencia.",
+      "lang": "es",
+      "themeColor": "#5b5bf0",
+      "backgroundColor": "#080c18"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e5195ca8-9225-49fa-b2d2-a7c9367cfb34"
+      }
+    },
+    "owner": "calce"
+  }
+}

@@ -1,26 +1,32 @@
 {
   "name": "portfolio",
+  "version": "1.0.0",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "main": "index.ts",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "oxlint",
-    "preview": "vite preview",
-    "typecheck": "tsc -b"
+    "start": "expo start --web",
+    "lint": "expo lint",
+    "typecheck": "tsc --noEmit",
+    "build": "expo export --platform web",
+    "deploy": "expo export --platform web && eas deploy --prod"
   },
   "dependencies": {
-    "react": "^19.2.8",
-    "react-dom": "^19.2.8"
+    "@expo-google-fonts/inter": "^0.4.2",
+    "@expo/metro-runtime": "~57.0.16",
+    "expo": "~57.0.26",
+    "expo-font": "~57.0.4",
+    "expo-linear-gradient": "~57.0.2",
+    "expo-status-bar": "~57.0.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-native": "^0.86.3",
+    "react-native-svg": "15.15.4",
+    "react-native-web": "^0.21.3"
   },
   "devDependencies": {
-    "@types/node": "^24.13.3",
-    "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.7",
-    "@vitejs/plugin-react": "^6.1.1",
-    "oxlint": "^1.81.0",
-    "typescript": "~6.0.2",
-    "vite": "^8.3.0"
+    "@types/react": "~19.2.2",
+    "eslint": "^9.39.5",
+    "eslint-config-expo": "~57.0.2",
+    "typescript": "~6.0.3"
   }
 }

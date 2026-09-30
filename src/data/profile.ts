@@ -1,3 +1,5 @@
+import type { ImageSourcePropType } from 'react-native'
+
 export const profile = {
   name: 'Jorge Calcerrada Sánchez-Mateos',
   shortName: 'Jorge Calcerrada',
@@ -18,8 +20,8 @@ export interface Project {
   description: string
   highlights: string[]
   stack: string[]
-  image?: string
-  imageDark?: string
+  image?: ImageSourcePropType
+  imageDark?: ImageSourcePropType
   repo?: string
   demo?: string
   note?: string
@@ -40,8 +42,8 @@ export const projects: Project[] = [
       'Modo claro/oscuro y datos solo en el dispositivo',
     ],
     stack: ['React Native', 'Expo', 'TypeScript', 'Expo Router', 'AsyncStorage'],
-    image: 'projects/mis-tareas.jpg',
-    imageDark: 'projects/mis-tareas-oscuro.jpg',
+    image: require('../../assets/projects/mis-tareas.jpg'),
+    imageDark: require('../../assets/projects/mis-tareas-oscuro.jpg'),
     repo: 'https://github.com/calcerritor3000/gestor-tareas',
     demo: 'https://gestor-tareas.expo.app/',
     demoLabel: 'Probar en el navegador',

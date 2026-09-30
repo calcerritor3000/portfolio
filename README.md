@@ -1,10 +1,11 @@
 # Portfolio · Jorge Calcerrada 👨‍💻
 
 Mi web personal: quién soy, qué proyectos he hecho y cómo contactarme.
-Es una página de una sola vista, **responsive** y con **modo oscuro**, hecha con **React + TypeScript + Vite**
-y publicada gratis en GitHub Pages.
+Es una página de una sola vista, **responsive** y con **modo oscuro**, hecha con **Expo (React Native para web) + TypeScript**
+y publicada gratis con **EAS Hosting**.
 
-🔗 **Web:** https://calcerritor3000.github.io/portfolio/ · 📱 **Demo de Mis tareas:** https://gestor-tareas.expo.app/
+👉 **[Ver el portfolio](https://jorge-calcerrada.expo.app/)**, sin instalar nada.
+📱 Demo de mi app *Mis tareas*: https://gestor-tareas.expo.app/
 
 <p align="center">
   <img src="docs/screenshots/escritorio.jpg" width="640" alt="Portfolio en escritorio" />
@@ -35,12 +36,13 @@ y publicada gratis en GitHub Pages.
 
 | | |
 |---|---|
-| Interfaz | React 19 |
-| Lenguaje | TypeScript |
-| Empaquetado | Vite |
-| Estilos | CSS propio con variables (sin librerías) |
-| Calidad | oxlint + `tsc` en modo estricto |
-| Despliegue | GitHub Actions → GitHub Pages |
+| Framework | [Expo](https://expo.dev) SDK 57 · React Native 0.86 · React 19 |
+| Lenguaje | TypeScript (modo estricto) |
+| Web | react-native-web, exportación estática con `expo export` |
+| Estilos | `StyleSheet` y tema propio (sin librerías de UI) |
+| Extras | expo-linear-gradient, react-native-svg, Inter (Google Fonts) |
+| Calidad | ESLint (eslint-config-expo) + `tsc --noEmit` |
+| Despliegue | EAS Hosting → `*.expo.app` |
 
 ## 🧩 Decisiones técnicas
 
@@ -48,24 +50,22 @@ y publicada gratis en GitHub Pages.
   Añadir un proyecto nuevo es añadir un objeto a una lista, sin tocar componentes.
 - **Tema con variables CSS**: los colores se definen una vez en `:root` y se redefinen con `[data-theme='dark']`.
   Un pequeño script en `index.html` aplica el tema antes de pintar la página para evitar el parpadeo.
-- **Sin dependencias de UI**: solo React. Los iconos son SVG propios, así la web pesa poco y carga rápido.
-- **Rutas relativas** (`base: './'` en Vite) para que funcione en GitHub Pages dentro de `/portfolio/`
-  o en cualquier otro hosting sin cambiar nada.
-- **Despliegue automático**: cada `push` a `main` pasa el lint, compila y publica la web.
+- **Mismo stack que mis apps**: el portfolio usa Expo y React Native, igual que *Mis tareas*, así que el mismo código de interfaz podría reutilizarse en móvil.
+- **Tema propio**: un `ThemeProvider` con paletas clara y oscura; sigue al sistema y recuerda la elección en `localStorage`.
+- **Iconos SVG propios** con `react-native-svg`, para no cargar librerías de iconos.
+- **Animaciones ligeras**: los bloques aparecen al entrar en pantalla con `IntersectionObserver` + `Animated`, sin librerías.
+- **Despliegue con un comando**: `npm run deploy` exporta la web y la publica con EAS Hosting.
 
 ## 📁 Estructura
 
 ```
-├── .github/workflows/deploy.yml   # Lint, build y publicación en GitHub Pages
 ├── docs/screenshots/              # Capturas para este README
-├── public/                        # Favicon e imágenes de proyectos
+├── assets/                        # Favicon e imágenes de proyectos
 └── src/
-    ├── components/                # Header, Hero, Projects, Skills, Journey, Contact…
+    ├── components/                # Header, Hero, Projects, Skills, Journey, Contact, ui…
     ├── data/profile.ts            # Datos personales, proyectos, tecnologías y trayectoria
-    ├── hooks/useTheme.ts          # Modo claro/oscuro
-    ├── App.tsx                    # Composición de la página
-    ├── main.tsx                   # Punto de entrada
-    └── index.css                  # Estilos y temas
+    ├── theme.tsx                  # Paletas, modo claro/oscuro y tamaños de pantalla
+    └── App.tsx                    # Composición de la página y navegación
 ```
 
 ## 🚀 Cómo ejecutarlo
@@ -76,16 +76,16 @@ Necesitas [Node.js](https://nodejs.org) 20 o superior.
 git clone https://github.com/calcerritor3000/portfolio.git
 cd portfolio
 npm install
-npm run dev          # servidor de desarrollo en http://localhost:5173
+npm start            # abre la web en http://localhost:8081
 ```
 
 Otros comandos:
 
 ```bash
-npm run lint         # análisis estático con oxlint
+npm run lint         # ESLint
 npm run typecheck    # comprobación de tipos
-npm run build        # compilación en dist/
-npm run preview      # sirve la versión compilada
+npm run build        # exporta la web a dist/
+npm run deploy       # exporta y publica en EAS Hosting (requiere npx eas-cli login)
 ```
 
 ## 📄 Licencia
