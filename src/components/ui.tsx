@@ -3,6 +3,7 @@ import {
   Animated,
   Easing,
   Linking,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -43,7 +44,17 @@ export function Txt({ size = 16, weight = 'regular', muted, color, style, ...res
   )
 }
 
+/**
+ * Abre un enlace externo. En web usa `window.open` con `noopener,noreferrer`
+ * para que la página abierta no pueda acceder a `window.opener` (reverse tabnabbing).
+ */
 export function openUrl(url: string) {
+  if (Platform.OS === 'web') {
+    // mailto: se abre en la misma pestaña (con _blank dejaría una pestaña vacía)
+    if (url.startsWith('mailto:')) window.location.href = url
+    else window.open(url, '_blank', 'noopener,noreferrer')
+    return
+  }
   void Linking.openURL(url)
 }
 
