@@ -50,8 +50,6 @@ y publicada gratis con **EAS Hosting**.
 
 - **Contenido separado del diseño**: todos los textos, proyectos y tecnologías viven en `src/data/profile.ts`.
   Añadir un proyecto nuevo es añadir un objeto a una lista, sin tocar componentes.
-- **Tema con variables CSS**: los colores se definen una vez en `:root` y se redefinen con `[data-theme='dark']`.
-  Un pequeño script en `index.html` aplica el tema antes de pintar la página para evitar el parpadeo.
 - **Mismo stack que mis apps**: el portfolio usa Expo y React Native, igual que *Mis tareas*, así que el mismo código de interfaz podría reutilizarse en móvil.
 - **Tema propio**: un `ThemeProvider` con paletas clara y oscura; sigue al sistema y recuerda la elección en `localStorage`.
 - **Iconos SVG propios** con `react-native-svg`, para no cargar librerías de iconos.

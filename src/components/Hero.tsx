@@ -155,7 +155,7 @@ export function Hero({ onNavigate }: { onNavigate: (id: string) => void }) {
             </View>
           </Appear>
 
-          <View style={styles.title}>
+          <View style={[styles.title, { columnGap: isMobile ? 9 : 16 }]}>
             {TITLE.map((w, i) => (
               <Fragment key={w.text}>
               {i === 3 && <View style={{ width: '100%', height: 0 }} />}
