@@ -193,6 +193,7 @@ export function Hero({ onNavigate }: { onNavigate: (id: string) => void }) {
           </Appear>
           <Appear show={ready} dir="up" delay={1100} style={styles.actions}>
             <Button label="Ver proyectos" variant="primary" onPress={() => onNavigate('proyectos')} />
+            <Button label="Descargar CV" onPress={() => openUrl(profile.cv)} />
             <Button label="Escríbeme" icon={<MailIcon size={18} color={colors.text} />} onPress={() => openUrl(`mailto:${profile.email}`)} />
           </Appear>
           <Appear show={ready} dir="up" delay={1250} style={styles.socials}>

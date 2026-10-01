@@ -7,7 +7,8 @@ export const profile = {
   location: 'Paiporta, Valencia',
   availability: 'Disponible para incorporación inmediata',
   intro:
-    'Acabo de terminar el ciclo de DAM y quiero dedicarme al desarrollo de software. Me gusta crear aplicaciones útiles, bien estructuradas y agradables de usar, tanto web como móviles.',
+    'Técnico en Desarrollo de Aplicaciones con experiencia en programación, bases de datos y redes. Me motivan los proyectos tecnológicos, aprendo rápido y me importa el trabajo bien hecho. Busco crecer en una empresa donde pueda aportar y seguir desarrollándome.',
+  cv: '/cv-jorge-calcerrada.pdf',
   email: 'calcerradasanchezjorge@gmail.com',
   github: 'https://github.com/calcerritor3000',
   linkedin: 'https://www.linkedin.com/in/jorge-calcerrada-s%C3%A1nchez-mateos-aa3570333/',
@@ -99,20 +100,28 @@ export const projects: Project[] = [
 
 export const skills: { group: string; items: string[] }[] = [
   {
-    group: 'Lenguajes y frameworks',
-    items: ['TypeScript', 'JavaScript', 'Java', 'HTML', 'CSS', 'React', 'React Native', 'Next.js', 'Node.js', 'Express'],
+    group: 'Programación',
+    items: ['TypeScript', 'JavaScript', 'Java', 'HTML', 'CSS avanzado', 'Python (básico)', 'pandas', 'React', 'React Native', 'Next.js', 'Node.js', 'Express'],
   },
   {
     group: 'Datos y backend',
-    items: ['MySQL', 'PostgreSQL', 'MongoDB', 'Firebase', 'APIs REST', 'JWT'],
+    items: ['MySQL', 'SQL (JOINs, agregaciones)', 'Firebase', 'APIs REST', 'JWT', 'Palantir Foundry (autodidacta)'],
   },
   {
-    group: 'Herramientas',
-    items: ['Git', 'GitHub', 'Docker', 'Linux', 'Visual Studio', 'Eclipse', 'Expo', 'Vite'],
+    group: 'Herramientas y sistemas',
+    items: ['Git', 'GitHub', 'Visual Studio', 'Expo', 'Vite', 'Windows', 'Linux', 'Redes locales'],
   },
   {
-    group: 'Otros',
-    items: ['Diseño UX/UI', 'Metodologías ágiles', 'Trello', 'Asana', 'WordPress', 'Uso de IA'],
+    group: 'Diseño y gestión',
+    items: ['Diseño UX/UI', 'Metodologías ágiles', 'Trello', 'Asana', 'WordPress', 'Elementor', 'Divi', 'Oxygen'],
+  },
+  {
+    group: 'IA',
+    items: ['Asistentes de IA para refactorizar y resolver problemas', 'Palantir AIP'],
+  },
+  {
+    group: 'Competencias',
+    items: ['Trabajo en equipo', 'Resolución de problemas', 'Aprendizaje rápido', 'Adaptabilidad', 'Independencia', 'Puntualidad y compromiso'],
   },
 ]
 
@@ -146,6 +155,12 @@ export const experience: TimelineItem[] = [
 
 export const education: TimelineItem[] = [
   {
+    title: 'Máster en Inteligencia Artificial',
+    place: 'Big School · Online',
+    period: 'Ago 2026 — Ene 2027 · en curso',
+    text: 'Formación especializada en inteligencia artificial para ampliar mi perfil como desarrollador.',
+  },
+  {
     title: 'CFGS Desarrollo de Aplicaciones Multiplataforma',
     place: 'Ceac · Valencia',
     period: '2024 — 2026',
@@ -154,14 +169,14 @@ export const education: TimelineItem[] = [
   {
     title: 'CFGM Sistemas Microinformáticos y Redes',
     place: 'Progresa · Valencia',
-    period: '2022 — 2024',
+    period: 'Sep 2022 — Jun 2024',
     text: 'Informática, sistemas operativos y redes.',
   },
   {
-    title: 'Inglés B1',
-    place: 'Trinity College London',
+    title: 'Idiomas',
+    place: 'Castellano nativo · Inglés B1 (Trinity College London)',
     period: '2024',
-    text: 'Certificación oficial de nivel intermedio.',
+    text: 'Certificación oficial de nivel intermedio en inglés.',
   },
 ]
 
