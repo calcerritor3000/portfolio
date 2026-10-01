@@ -49,6 +49,22 @@ export const projects: Project[] = [
     demoLabel: 'Probar en el navegador',
   },
   {
+    title: 'QR para restaurantes',
+    tag: 'SaaS · Proyecto personal',
+    period: '2026',
+    description:
+      'SaaS B2B para restaurantes: el cliente escanea un QR en la mesa, ve su cuenta, la divide a partes iguales y paga al instante con Stripe.',
+    highlights: [
+      'Pago de la cuenta (o de su parte) con Stripe',
+      'Filtro inteligente de reseñas: 4-5 estrellas a Google, 1-3 a un formulario interno',
+      'PWA instalable y monorepo con npm workspaces',
+      'API propia con base de datos SQLite local',
+    ],
+    stack: ['React', 'Vite', 'Node.js', 'Express', 'SQLite', 'Stripe', 'PWA'],
+    repo: 'https://github.com/calcerritor3000/App-QR',
+    note: '🚧 Aún no desplegado: se ejecuta en local (guía en el README)',
+  },
+  {
     title: 'CVN Alertas',
     tag: 'TFG',
     period: '2025 — 2026',
@@ -77,7 +93,7 @@ export const projects: Project[] = [
       'Interfaz responsive',
     ],
     stack: ['Next.js', 'React', 'TypeScript', 'Firebase', 'Tailwind CSS'],
-    note: 'Código privado (proyecto de empresa)',
+    note: '🔒 Código privado (proyecto de empresa)',
   },
 ]
 
@@ -150,7 +166,7 @@ export const education: TimelineItem[] = [
 ]
 
 export const stats = [
-  { value: '3', label: 'proyectos completos' },
+  { value: '4', label: 'proyectos completos' },
   { value: '3', label: 'prácticas en empresas' },
   { value: 'DAM', label: 'ciclo terminado en 2026' },
   { value: 'B1', label: 'inglés (Trinity)' },

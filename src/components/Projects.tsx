@@ -24,7 +24,7 @@ function Links({ project }: { project: Project }) {
       )}
       {project.note && (
         <Txt size={14} muted>
-          🔒 {project.note}
+          {project.note}
         </Txt>
       )}
     </View>
@@ -34,7 +34,7 @@ function Links({ project }: { project: Project }) {
 function Body({ project, padding }: { project: Project; padding: number }) {
   const { colors } = useTheme()
   return (
-    <View style={{ padding, flex: 1, justifyContent: 'center' }}>
+    <View style={{ padding, flex: 1, justifyContent: 'flex-start' }}>
       <View style={styles.meta}>
         <Chip label={project.tag} accent />
         <Txt size={13.5} muted>

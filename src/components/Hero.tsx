@@ -1,5 +1,5 @@
 import { Fragment, useContext } from 'react'
-import { Pressable, StyleSheet, View } from 'react-native'
+import { Image, Pressable, StyleSheet, View } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Appear, Blink, Blob, Float, Pulse, ReadyContext, Reveal, useCountUp } from '../anim'
 import { GitHubIcon, LinkedInIcon, MailIcon } from './Icons'
@@ -146,12 +146,22 @@ export function Hero({ onNavigate }: { onNavigate: (id: string) => void }) {
 
       <Container style={{ flexDirection: isDesktop ? 'row' : 'column', alignItems: isDesktop ? 'center' : 'stretch', gap: 48 }}>
         <View style={{ flex: isDesktop ? 1.15 : undefined }}>
-          <Appear show={ready} dir="up" delay={100} style={{ alignSelf: 'flex-start', maxWidth: '100%' }}>
-            <View style={[styles.badge, { backgroundColor: colors.surface, borderColor: colors.border }]}>
-              <Pulse color={colors.success} />
-              <Txt size={13.5} muted style={{ flexShrink: 1 }}>
-                {profile.availability}
-              </Txt>
+          <Appear show={ready} dir="up" delay={100} style={{ maxWidth: '100%' }}>
+            <View style={styles.intro}>
+              <LinearGradient colors={[colors.accent, colors.accent2]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.avatarRing}>
+                <Image
+                  source={require('../../assets/jorge.jpg')}
+                  accessibilityLabel="Foto de Jorge Calcerrada"
+                  resizeMode="cover"
+                  style={[styles.avatar, { borderColor: colors.bg }]}
+                />
+              </LinearGradient>
+              <View style={[styles.badge, { backgroundColor: colors.surface, borderColor: colors.border, flexShrink: 1 }]}>
+                <Pulse color={colors.success} />
+                <Txt size={13.5} muted style={{ flexShrink: 1 }}>
+                  {profile.availability}
+                </Txt>
+              </View>
             </View>
           </Appear>
 
@@ -213,6 +223,9 @@ export function Hero({ onNavigate }: { onNavigate: (id: string) => void }) {
 }
 
 const styles = StyleSheet.create({
+  intro: { flexDirection: 'row', alignItems: 'center', gap: 14 },
+  avatarRing: { width: 108, height: 108, borderRadius: 54, padding: 4 },
+  avatar: { width: 100, height: 100, borderRadius: 50, borderWidth: 3 },
   badge: {
     flexDirection: 'row',
     alignItems: 'center',
