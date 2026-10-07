@@ -5,7 +5,7 @@ import { skills } from '../data/profile'
 
 export function Skills({ onLayout }: { onLayout: (id: string, e: LayoutChangeEvent) => void }) {
   return (
-    <Section id="tecnologias" eyebrow="Tecnologías" title="Mi caja de herramientas" subtitle="Con lo que trabajo habitualmente." onLayout={onLayout}>
+    <Section id="tecnologias" eyebrow="Tecnologías" title="Mi caja de herramientas" subtitle="Con lo que trabajo habitualmente y lo que estoy aprendiendo." onLayout={onLayout}>
       <View style={styles.grid}>
         {skills.map((g, i) => (
           <Reveal key={g.group} delay={i * 80} style={{ flexGrow: 1, flexBasis: 250 }}>

@@ -116,8 +116,18 @@ export const skills: { group: string; items: string[] }[] = [
     items: ['Diseño UX/UI', 'Metodologías ágiles', 'Trello', 'Asana', 'WordPress', 'Elementor', 'Divi', 'Oxygen'],
   },
   {
-    group: 'IA',
-    items: ['Asistentes de IA para refactorizar y resolver problemas', 'Palantir AIP'],
+    group: 'Inteligencia artificial',
+    items: [
+      'IA generativa y LLMs',
+      'Ingeniería de prompts',
+      'RAG (búsqueda aumentada)',
+      'Agentes de IA',
+      'MCP (Model Context Protocol)',
+      'Ollama y modelos en local',
+      'Datos para entrenar y evaluar modelos',
+      'Palantir AIP',
+      'Asistentes de IA en el desarrollo',
+    ],
   },
   {
     group: 'Competencias',
