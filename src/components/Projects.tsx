@@ -2,6 +2,7 @@ import { Image, StyleSheet, View, type LayoutChangeEvent } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Float, Pop } from '../anim'
 import { ArrowIcon } from './Icons'
+import { PromoVideo } from './Spotlight'
 import { Button, Card, Chip, openUrl, Reveal, Section, Txt } from './ui'
 import { projects, type Project } from '../data/profile'
 import { useLayout, useTheme } from '../theme'
@@ -88,7 +89,12 @@ function Featured({ project }: { project: Project }) {
             />
           </Float>
         )}
-        {project.imageDark && (
+        {project.video ? (
+          <Float amplitude={10} duration={3000} delay={900} style={styles.phoneBack}>
+            <PromoVideo src={project.video} width={isMobile ? 163 : 191} showSound={false} />
+          </Float>
+        ) : (
+          project.imageDark && (
           <Float amplitude={10} duration={3000} delay={900} style={styles.phoneBack}>
             <Image
               source={project.imageDark}
@@ -97,6 +103,7 @@ function Featured({ project }: { project: Project }) {
               style={[styles.phone, { height: isMobile ? 290 : 340 }]}
             />
           </Float>
+          )
         )}
       </View>
       <View style={{ flex: isDesktop ? 0.54 : undefined }}>

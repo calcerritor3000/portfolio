@@ -5,7 +5,7 @@ Es una página de una sola vista, **responsive** y con **modo oscuro**, hecha co
 y publicada gratis con **EAS Hosting**.
 
 👉 **[Ver el portfolio](https://jorge-calcerrada.expo.app/)**, sin instalar nada.
-📱 Demo de mi app *Mis tareas*: https://gestor-tareas.expo.app/
+📱 Demo de mi app *Taskorit*: https://gestor-tareas.expo.app/
 
 <p align="center">
   <img src="docs/screenshots/escritorio.jpg" width="640" alt="Portfolio en escritorio" />
@@ -19,8 +19,9 @@ y publicada gratis con **EAS Hosting**.
 ## ✨ Funcionalidades
 
 - **Presentación**: hero con tarjeta de código, cifras clave y enlaces a GitHub, LinkedIn y email.
+- **Sección Taskorit**: bloque publicitario de mi app con su anuncio en vídeo dentro de un marco de móvil (silenciado por defecto, con botón para activar el sonido) y llamada a la acción para probarla.
 - **Proyectos**: tarjetas con descripción, puntos clave, tecnologías y enlaces a código y demo.
-  El proyecto destacado (*Mis tareas*) ocupa todo el ancho y se muestra en maquetas de móvil, en claro y en oscuro.
+  El proyecto destacado (*Taskorit*) ocupa todo el ancho y se muestra en dos móviles: una captura y el anuncio en vídeo.
 - **Tecnologías** agrupadas por tipo.
 - **Trayectoria**: experiencia y formación en forma de línea de tiempo.
 - **Contacto** directo por email, LinkedIn o GitHub.
@@ -50,7 +51,7 @@ y publicada gratis con **EAS Hosting**.
 
 - **Contenido separado del diseño**: todos los textos, proyectos y tecnologías viven en `src/data/profile.ts`.
   Añadir un proyecto nuevo es añadir un objeto a una lista, sin tocar componentes.
-- **Mismo stack que mis apps**: el portfolio usa Expo y React Native, igual que *Mis tareas*, así que el mismo código de interfaz podría reutilizarse en móvil.
+- **Mismo stack que mis apps**: el portfolio usa Expo y React Native, igual que *Taskorit*, así que el mismo código de interfaz podría reutilizarse en móvil.
 - **Tema propio**: un `ThemeProvider` con paletas clara y oscura; sigue al sistema y recuerda la elección en `localStorage`.
 - **Iconos SVG propios** con `react-native-svg`, para no cargar librerías de iconos.
 - **Animaciones sin librerías**: todo con `Animated` de React Native y `IntersectionObserver`, reunido en `src/anim.tsx`. Respeta `prefers-reduced-motion`.
@@ -62,7 +63,7 @@ y publicada gratis con **EAS Hosting**.
 ```
 ├── docs/screenshots/              # Capturas para este README
 ├── assets/                        # Favicon PNG e imágenes de proyectos
-├── public/favicon.svg             # Favicon en SVG (la J)
+├── public/                        # Favicon SVG, CV en PDF y anuncio de Taskorit (mp4)
 ├── scripts/inject-preloader.js    # Inserta la pantalla de carga en dist/index.html
 └── src/
     ├── components/                # Header, Hero, Projects, Skills, Journey, Contact, ui…

@@ -27,11 +27,12 @@ export interface Project {
   demo?: string
   note?: string
   demoLabel?: string
+  video?: string
 }
 
 export const projects: Project[] = [
   {
-    title: 'Mis tareas',
+    title: 'Taskorit',
     tag: 'App móvil',
     period: '2026',
     description:
@@ -48,6 +49,7 @@ export const projects: Project[] = [
     repo: 'https://github.com/calcerritor3000/gestor-tareas',
     demo: 'https://gestor-tareas.expo.app/',
     demoLabel: 'Probar en el navegador',
+    video: '/taskorit-anuncio.mp4',
   },
   {
     title: 'QR para restaurantes',

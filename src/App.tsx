@@ -15,6 +15,7 @@ import { Hero } from './components/Hero'
 import { Journey } from './components/Journey'
 import { Projects } from './components/Projects'
 import { Skills } from './components/Skills'
+import { Spotlight } from './components/Spotlight'
 import { ReadyContext } from './anim'
 import { hidePreloader } from './preloader'
 import { ThemeProvider, useTheme } from './theme'
@@ -58,6 +59,7 @@ function Portfolio() {
         onLayout={(e) => (size.current.view = e.nativeEvent.layout.height)}
       >
         <Hero onNavigate={navigate} />
+        <Spotlight onLayout={onSectionLayout} />
         <Projects onLayout={onSectionLayout} />
         <Skills onLayout={onSectionLayout} />
         <Journey onLayout={onSectionLayout} />

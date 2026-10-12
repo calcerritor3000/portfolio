@@ -6,6 +6,7 @@ import { Container, Txt } from './ui'
 import { useLayout, useTheme } from '../theme'
 
 export const NAV_LINKS = [
+  { id: 'taskorit', label: 'Taskorit' },
   { id: 'proyectos', label: 'Proyectos' },
   { id: 'tecnologias', label: 'Tecnologías' },
   { id: 'trayectoria', label: 'Trayectoria' },
