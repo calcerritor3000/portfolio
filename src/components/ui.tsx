@@ -52,7 +52,13 @@ export function openUrl(url: string) {
   if (Platform.OS === 'web') {
     // mailto: se abre en la misma pestaña (con _blank dejaría una pestaña vacía)
     if (url.startsWith('mailto:')) window.location.href = url
-    else window.open(url, '_blank', 'noopener,noreferrer')
+    else {
+      // Sin 'noopener' en las opciones para poder detectar si el navegador bloquea la ventana;
+      // se corta window.opener a mano. Si se bloquea, se abre en la misma pestaña.
+      const w = window.open(url, '_blank')
+      if (w) w.opener = null
+      else window.location.href = url
+    }
     return
   }
   void Linking.openURL(url)
