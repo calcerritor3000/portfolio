@@ -2,7 +2,7 @@ import { useContext, useState } from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
 import { CloseIcon, MenuIcon, MoonIcon, SunIcon } from './Icons'
 import { Appear, ReadyContext } from '../anim'
-import { Container, Txt } from './ui'
+import { Button, Container, open3D, Txt } from './ui'
 import { useLayout, useTheme } from '../theme'
 
 export const NAV_LINKS = [
@@ -71,6 +71,7 @@ export function Header({ active, onNavigate }: Props) {
           </View>
         )}
 
+        {!isMobile && <Button small variant="primary" label="🧊 3D" onPress={open3D} />}
         {iconBtn(
           mode === 'dark' ? 'Activar modo claro' : 'Activar modo oscuro',
           toggle,
@@ -89,6 +90,11 @@ export function Header({ active, onNavigate }: Props) {
               </Txt>
             </Pressable>
           ))}
+          <Pressable accessibilityRole="link" onPress={open3D} style={styles.menuItem}>
+            <Txt size={16} weight="bold" color={colors.accent}>
+              🧊 Portafolio 3D
+            </Txt>
+          </Pressable>
         </View>
       )}
     </Appear>

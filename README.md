@@ -19,6 +19,7 @@ y publicada gratis con **EAS Hosting**.
 ## ✨ Funcionalidades
 
 - **Presentación**: hero con tarjeta de código, cifras clave y enlaces a GitHub, LinkedIn y email.
+- **Portafolio 3D**: botón "🧊 Explorar en 3D" (en el inicio, la cabecera y el menú móvil) que abre mi portafolio 3D explorable, publicado en [/3d/](https://jorge-calcerrada.expo.app/3d/) del mismo dominio.
 - **Sección Taskorit**: bloque publicitario de mi app con su anuncio en vídeo dentro de un marco de móvil (silenciado por defecto, con botón para activar el sonido) y llamada a la acción para probarla.
 - **Proyectos**: tarjetas con descripción, puntos clave, tecnologías y enlaces a código y demo.
   El proyecto destacado (*Taskorit*) ocupa todo el ancho y se muestra en dos móviles: una captura y el anuncio en vídeo.
@@ -63,7 +64,8 @@ y publicada gratis con **EAS Hosting**.
 ```
 ├── docs/screenshots/              # Capturas para este README
 ├── assets/                        # Favicon PNG e imágenes de proyectos
-├── public/                        # Favicon SVG, CV en PDF y anuncio de Taskorit (mp4)
+├── public/                        # Favicon SVG, CV en PDF, anuncio de Taskorit (mp4)
+│   └── 3d/                        # Build del Portafolio 3D (se genera con npm run sync:3d)
 ├── scripts/inject-preloader.js    # Inserta la pantalla de carga en dist/index.html
 └── src/
     ├── components/                # Header, Hero, Projects, Skills, Journey, Contact, ui…
@@ -91,6 +93,7 @@ Otros comandos:
 npm run lint         # ESLint
 npm run typecheck    # comprobación de tipos
 npm run build        # exporta la web a dist/ e inyecta la pantalla de carga
+npm run sync:3d      # recompila el Portafolio 3D (carpeta hermana) y lo copia a public/3d
 npm run deploy       # exporta y publica en EAS Hosting (requiere npx eas-cli login)
 ```
 

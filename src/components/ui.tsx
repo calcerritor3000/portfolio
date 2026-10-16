@@ -58,6 +58,13 @@ export function openUrl(url: string) {
   void Linking.openURL(url)
 }
 
+/** Abre el portafolio 3D (otra app, publicada en /3d/ del mismo dominio) en la misma pestaña. */
+export const PORTFOLIO_3D_URL = '/3d/'
+export function open3D() {
+  if (Platform.OS === 'web') window.location.href = PORTFOLIO_3D_URL
+  else void Linking.openURL('https://jorge-calcerrada.expo.app' + PORTFOLIO_3D_URL)
+}
+
 /** Contenedor centrado con ancho máximo y márgenes laterales. */
 export function Container({ children, style }: { children: ReactNode; style?: StyleProp<ViewStyle> }) {
   const { isMobile } = useLayout()

@@ -3,7 +3,7 @@ import { Image, Pressable, StyleSheet, View } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Appear, Blink, Blob, Float, Pulse, ReadyContext, Reveal, useCountUp } from '../anim'
 import { GitHubIcon, LinkedInIcon, MailIcon } from './Icons'
-import { Button, Card, Container, openUrl, Txt } from './ui'
+import { Button, Card, Container, open3D, openUrl, Txt } from './ui'
 import { profile, stats } from '../data/profile'
 import { font, useLayout, useTheme } from '../theme'
 
@@ -192,7 +192,8 @@ export function Hero({ onNavigate }: { onNavigate: (id: string) => void }) {
             </Txt>
           </Appear>
           <Appear show={ready} dir="up" delay={1100} style={styles.actions}>
-            <Button label="Ver proyectos" variant="primary" onPress={() => onNavigate('proyectos')} />
+            <Button label="🧊 Explorar en 3D" variant="primary" onPress={open3D} />
+            <Button label="Ver proyectos" onPress={() => onNavigate('proyectos')} />
             <Button label="Descargar CV" onPress={() => openUrl(profile.cv)} />
             <Button label="Escríbeme" icon={<MailIcon size={18} color={colors.text} />} onPress={() => openUrl(`mailto:${profile.email}`)} />
           </Appear>
