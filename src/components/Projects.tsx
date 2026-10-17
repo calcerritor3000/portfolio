@@ -4,10 +4,12 @@ import { Float, Pop } from '../anim'
 import { ArrowIcon } from './Icons'
 import { PromoVideo } from './Spotlight'
 import { Button, Card, Chip, openUrl, Reveal, Section, Txt } from './ui'
-import { projects, type Project } from '../data/profile'
+import { type Project } from '../data/content'
+import { useLang } from '../i18n'
 import { useLayout, useTheme } from '../theme'
 
 function Links({ project }: { project: Project }) {
+  const { t } = useLang()
   const { colors } = useTheme()
   return (
     <View style={styles.links}>
@@ -15,13 +17,13 @@ function Links({ project }: { project: Project }) {
         <Button
           small
           variant="primary"
-          label={project.demoLabel ?? 'Ver demo'}
+          label={project.demoLabel ?? t.ui.seeDemo}
           icon={<ArrowIcon color="#fff" />}
           onPress={() => openUrl(project.demo!)}
         />
       )}
       {project.repo && (
-        <Button small label="Ver código" icon={<ArrowIcon color={colors.text} />} onPress={() => openUrl(project.repo!)} />
+        <Button small label={t.ui.seeCode} icon={<ArrowIcon color={colors.text} />} onPress={() => openUrl(project.repo!)} />
       )}
       {project.note && (
         <Txt size={14} muted>
@@ -73,6 +75,7 @@ function Body({ project, padding }: { project: Project; padding: number }) {
 }
 
 function Featured({ project }: { project: Project }) {
+  const { t } = useLang()
   const { colors } = useTheme()
   const { isDesktop, isMobile } = useLayout()
   return (
@@ -91,7 +94,7 @@ function Featured({ project }: { project: Project }) {
         )}
         {project.video ? (
           <Float amplitude={10} duration={3000} delay={900} style={styles.phoneBack}>
-            <PromoVideo src={project.video} width={isMobile ? 163 : 191} showSound={false} />
+            <PromoVideo src={project.video} poster={project.poster} label={t.spotlight.videoLabel} width={isMobile ? 163 : 191} />
           </Float>
         ) : (
           project.imageDark && (
@@ -115,13 +118,14 @@ function Featured({ project }: { project: Project }) {
 
 export function Projects({ onLayout }: { onLayout: (id: string, e: LayoutChangeEvent) => void }) {
   const { isMobile } = useLayout()
-  const [featured, ...rest] = projects
+  const { t } = useLang()
+  const [featured, ...rest] = t.projects
   return (
     <Section
       id="proyectos"
-      eyebrow="Proyectos"
-      title="Cosas que he construido"
-      subtitle="Desde una app móvil propia hasta un TFG desplegado en producción."
+      eyebrow={t.projectsSection.eyebrow}
+      title={t.projectsSection.title}
+      subtitle={t.projectsSection.subtitle}
       onLayout={onLayout}
     >
       <Reveal>

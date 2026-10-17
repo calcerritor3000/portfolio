@@ -9,6 +9,7 @@ import {
   useFonts,
 } from '@expo-google-fonts/inter'
 import { StatusBar } from 'expo-status-bar'
+import { About } from './components/About'
 import { Contact } from './components/Contact'
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
@@ -18,6 +19,7 @@ import { Skills } from './components/Skills'
 import { Spotlight } from './components/Spotlight'
 import { ReadyContext } from './anim'
 import { hidePreloader } from './preloader'
+import { LangProvider } from './i18n'
 import { ThemeProvider, useTheme } from './theme'
 
 const HEADER_HEIGHT = 64
@@ -59,6 +61,7 @@ function Portfolio() {
         onLayout={(e) => (size.current.view = e.nativeEvent.layout.height)}
       >
         <Hero onNavigate={navigate} />
+        <About onLayout={onSectionLayout} />
         <Spotlight onLayout={onSectionLayout} />
         <Projects onLayout={onSectionLayout} />
         <Skills onLayout={onSectionLayout} />
@@ -90,9 +93,11 @@ export default function App() {
   if (!loaded) return null
   return (
     <ThemeProvider>
-      <ReadyContext.Provider value={ready}>
-        <Portfolio />
-      </ReadyContext.Provider>
+      <LangProvider>
+        <ReadyContext.Provider value={ready}>
+          <Portfolio />
+        </ReadyContext.Provider>
+      </LangProvider>
     </ThemeProvider>
   )
 }

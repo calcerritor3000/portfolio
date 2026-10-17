@@ -1,7 +1,7 @@
 # Portfolio · Jorge Calcerrada 👨‍💻
 
 Mi web personal: quién soy, qué proyectos he hecho y cómo contactarme.
-Es una página de una sola vista, **responsive** y con **modo oscuro**, hecha con **Expo (React Native para web) + TypeScript**
+Es una página de una sola vista, **responsive**, **bilingüe (ES/EN)** y con **modo oscuro**, hecha con **Expo (React Native para web) + TypeScript**
 y publicada gratis con **EAS Hosting**.
 
 👉 **[Ver el portfolio](https://jorge-calcerrada.expo.app/)**, sin instalar nada.
@@ -13,19 +13,22 @@ y publicada gratis con **EAS Hosting**.
 
 <p align="center">
   <img src="docs/screenshots/movil.jpg" width="220" alt="Portfolio en móvil" />
-  <img src="docs/screenshots/oscuro.jpg" width="420" alt="Portfolio en modo oscuro" />
+  <img src="docs/screenshots/oscuro.jpg" width="420" alt="Sección de Taskorit en modo oscuro" />
 </p>
 
 ## ✨ Funcionalidades
 
-- **Presentación**: hero con tarjeta de código, cifras clave y enlaces a GitHub, LinkedIn y email.
-- **Portafolio 3D**: botón "🧊 Explorar en 3D" (en el inicio, la cabecera y el menú móvil) que abre mi portafolio 3D explorable, publicado en [/3d/](https://jorge-calcerrada.expo.app/3d/) del mismo dominio.
-- **Sección Taskorit**: bloque publicitario de mi app con su anuncio en vídeo dentro de un marco de móvil (silenciado por defecto, con botón para activar el sonido) y llamada a la acción para probarla.
+- **Presentación**: hero con foto, tarjeta de código, cifras clave, descarga del CV y enlaces a GitHub y LinkedIn.
+- **Sobre mí**: quién soy, qué busco y datos rápidos (ubicación, formación, idiomas).
+- **Español e inglés**: botón ES/EN en la cabecera; detecta el idioma del navegador y recuerda la elección.
+- **Portafolio 3D**: botón "🧊 Explorar en 3D" (en el inicio, la cabecera y el menú móvil) que abre mi [portafolio 3D](https://github.com/calcerritor3000/portafolio-3d) explorable, publicado en [/3d/](https://jorge-calcerrada.expo.app/3d/). En su plaza, un **holograma** sobre la fuente reproduce el anuncio de Taskorit.
+- **Sección Taskorit**: bloque publicitario de mi app con su anuncio en vídeo (comprimido a ~1,9 MB, con portada y efecto de líneas de escaneo) dentro de un marco de móvil, y llamada a la acción para probarla.
 - **Proyectos**: tarjetas con descripción, puntos clave, tecnologías y enlaces a código y demo.
   El proyecto destacado (*Taskorit*) ocupa todo el ancho y se muestra en dos móviles: una captura y el anuncio en vídeo.
 - **Tecnologías** agrupadas por tipo.
 - **Trayectoria**: experiencia y formación en forma de línea de tiempo.
-- **Contacto** directo por email, LinkedIn o GitHub.
+- **Contacto** con formulario (valida los campos y abre tu correo con el mensaje ya escrito, sin servidor) y enlaces a email, LinkedIn y GitHub.
+- **Vista previa al compartir**: imagen Open Graph (1200×630) para LinkedIn, WhatsApp, X…
 - **Modo claro y oscuro**: sigue la preferencia del sistema y recuerda la elección del usuario.
 - **Responsive** de móvil a escritorio, con menú hamburguesa y sin scroll horizontal.
 - **Pantalla de carga** con una J que se dibuja, inyectada en el HTML para verse al instante, antes de que arranque la app.
@@ -33,7 +36,8 @@ y publicada gratis con **EAS Hosting**.
 - **Navegación** que resalta la sección visible.
 
 <p align="center">
-  <img src="docs/screenshots/proyectos.jpg" width="640" alt="Sección de proyectos" />
+  <img src="docs/screenshots/sobre-mi.jpg" width="420" alt="Sección Sobre mí" />
+  <img src="docs/screenshots/holograma-3d.jpg" width="420" alt="Holograma de Taskorit en el portafolio 3D" />
 </p>
 
 ## 🛠️ Tecnologías
@@ -50,8 +54,8 @@ y publicada gratis con **EAS Hosting**.
 
 ## 🧩 Decisiones técnicas
 
-- **Contenido separado del diseño**: todos los textos, proyectos y tecnologías viven en `src/data/profile.ts`.
-  Añadir un proyecto nuevo es añadir un objeto a una lista, sin tocar componentes.
+- **Contenido separado del diseño**: todos los textos, en español e inglés, viven en `src/data/content.ts`.
+  Añadir un proyecto nuevo es añadir un objeto a una lista, sin tocar componentes. `src/i18n.tsx` elige el idioma.
 - **Mismo stack que mis apps**: el portfolio usa Expo y React Native, igual que *Taskorit*, así que el mismo código de interfaz podría reutilizarse en móvil.
 - **Tema propio**: un `ThemeProvider` con paletas clara y oscura; sigue al sistema y recuerda la elección en `localStorage`.
 - **Iconos SVG propios** con `react-native-svg`, para no cargar librerías de iconos.
@@ -64,12 +68,13 @@ y publicada gratis con **EAS Hosting**.
 ```
 ├── docs/screenshots/              # Capturas para este README
 ├── assets/                        # Favicon PNG e imágenes de proyectos
-├── public/                        # Favicon SVG, CV en PDF, anuncio de Taskorit (mp4)
+├── public/                        # Favicon SVG, CV en PDF, anuncio de Taskorit (mp4 + portada), imagen para compartir
 │   └── 3d/                        # Build del Portafolio 3D (se genera con npm run sync:3d)
 ├── scripts/inject-preloader.js    # Inserta la pantalla de carga en dist/index.html
 └── src/
-    ├── components/                # Header, Hero, Projects, Skills, Journey, Contact, ui…
-    ├── data/profile.ts            # Datos personales, proyectos, tecnologías y trayectoria
+    ├── components/                # Header, Hero, About, Spotlight, Projects, Skills, Journey, Contact, ui…
+    ├── data/content.ts            # Todos los textos y datos, en español e inglés
+    ├── i18n.tsx                   # Idioma actual (ES/EN) y cambio de idioma
     ├── anim.tsx                   # Sistema de animaciones: Appear, Reveal, Float, Blob, CountUp…
     ├── preloader.ts               # Retira la pantalla de carga
     ├── theme.tsx                  # Paletas, modo claro/oscuro y tamaños de pantalla

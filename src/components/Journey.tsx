@@ -1,6 +1,7 @@
 import { StyleSheet, View, type LayoutChangeEvent } from 'react-native'
 import { Reveal, Section, Txt } from './ui'
-import { education, experience, type TimelineItem } from '../data/profile'
+import { type TimelineItem } from '../data/content'
+import { useLang } from '../i18n'
 import { useTheme } from '../theme'
 
 function Timeline({ title, items }: { title: string; items: TimelineItem[] }) {
@@ -34,11 +35,13 @@ function Timeline({ title, items }: { title: string; items: TimelineItem[] }) {
 }
 
 export function Journey({ onLayout }: { onLayout: (id: string, e: LayoutChangeEvent) => void }) {
+  const { t } = useLang()
+  const s = t.journeySection
   return (
-    <Section id="trayectoria" eyebrow="Trayectoria" title="Experiencia y formación" onLayout={onLayout}>
+    <Section id="trayectoria" eyebrow={s.eyebrow} title={s.title} onLayout={onLayout}>
       <View style={styles.cols}>
-        <Timeline title="Experiencia" items={experience} />
-        <Timeline title="Formación" items={education} />
+        <Timeline title={s.experience} items={t.experience} />
+        <Timeline title={s.education} items={t.education} />
       </View>
     </Section>
   )

@@ -3,15 +3,8 @@ import { Pressable, StyleSheet, View } from 'react-native'
 import { CloseIcon, MenuIcon, MoonIcon, SunIcon } from './Icons'
 import { Appear, ReadyContext } from '../anim'
 import { Button, Container, open3D, Txt } from './ui'
+import { useLang } from '../i18n'
 import { useLayout, useTheme } from '../theme'
-
-export const NAV_LINKS = [
-  { id: 'taskorit', label: 'Taskorit' },
-  { id: 'proyectos', label: 'Proyectos' },
-  { id: 'tecnologias', label: 'Tecnologías' },
-  { id: 'trayectoria', label: 'Trayectoria' },
-  { id: 'contacto', label: 'Contacto' },
-]
 
 interface Props {
   active: string
@@ -20,9 +13,12 @@ interface Props {
 
 export function Header({ active, onNavigate }: Props) {
   const { colors, mode, toggle } = useTheme()
-  const { isMobile } = useLayout()
+  const { lang, t, toggleLang } = useLang()
+  const { width } = useLayout()
   const [open, setOpen] = useState(false)
   const ready = useContext(ReadyContext)
+  // Con 6 secciones, el menú completo solo cabe en pantallas anchas
+  const compact = width < 1060
 
   const go = (id: string) => {
     setOpen(false)
@@ -51,9 +47,9 @@ export function Header({ active, onNavigate }: Props) {
 
         <View style={styles.spacer} />
 
-        {!isMobile && (
+        {!compact && (
           <View style={styles.nav}>
-            {NAV_LINKS.map((l) => {
+            {t.nav.map((l) => {
               const isActive = active === l.id
               return (
                 <Pressable
@@ -71,19 +67,29 @@ export function Header({ active, onNavigate }: Props) {
           </View>
         )}
 
-        {!isMobile && <Button small variant="primary" label="🧊 3D" onPress={open3D} />}
+        {width >= 560 && <Button small variant="primary" label="🧊 3D" onPress={open3D} />}
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={t.ui.langSwitch}
+          onPress={toggleLang}
+          style={[styles.iconBtn, { backgroundColor: colors.surface, borderColor: colors.border, width: 46 }]}
+        >
+          <Txt size={13} weight="bold" style={{ lineHeight: 16 }}>
+            {lang === 'es' ? 'EN' : 'ES'}
+          </Txt>
+        </Pressable>
         {iconBtn(
-          mode === 'dark' ? 'Activar modo claro' : 'Activar modo oscuro',
+          mode === 'dark' ? t.ui.lightMode : t.ui.darkMode,
           toggle,
           mode === 'dark' ? <SunIcon color={colors.text} /> : <MoonIcon color={colors.text} />,
         )}
-        {isMobile &&
-          iconBtn('Abrir menú', () => setOpen((o) => !o), open ? <CloseIcon color={colors.text} /> : <MenuIcon color={colors.text} />)}
+        {compact &&
+          iconBtn(t.ui.openMenu, () => setOpen((o) => !o), open ? <CloseIcon color={colors.text} /> : <MenuIcon color={colors.text} />)}
       </Container>
 
-      {isMobile && open && (
+      {compact && open && (
         <View style={[styles.menu, { backgroundColor: colors.bg, borderBottomColor: colors.border }]}>
-          {NAV_LINKS.map((l) => (
+          {t.nav.map((l) => (
             <Pressable key={l.id} accessibilityRole="link" onPress={() => go(l.id)} style={styles.menuItem}>
               <Txt size={16} weight="medium" color={active === l.id ? colors.accent : colors.text}>
                 {l.label}
@@ -92,7 +98,7 @@ export function Header({ active, onNavigate }: Props) {
           ))}
           <Pressable accessibilityRole="link" onPress={open3D} style={styles.menuItem}>
             <Txt size={16} weight="bold" color={colors.accent}>
-              🧊 Portafolio 3D
+              {t.ui.portfolio3d}
             </Txt>
           </Pressable>
         </View>
@@ -105,8 +111,8 @@ const styles = StyleSheet.create({
   header: { position: 'absolute', top: 0, left: 0, right: 0, zIndex: 20, borderBottomWidth: 1 },
   row: { height: 64, flexDirection: 'row', alignItems: 'center', gap: 8 },
   spacer: { flex: 1 },
-  nav: { flexDirection: 'row', gap: 4, marginRight: 8 },
-  navItem: { paddingVertical: 6, paddingHorizontal: 12, borderRadius: 999 },
+  nav: { flexDirection: 'row', gap: 2, marginRight: 6 },
+  navItem: { paddingVertical: 6, paddingHorizontal: 11, borderRadius: 999 },
   iconBtn: { width: 40, height: 40, borderRadius: 12, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
   menu: { paddingHorizontal: 16, paddingBottom: 12, borderBottomWidth: 1 },
   menuItem: { paddingVertical: 12, paddingHorizontal: 14 },

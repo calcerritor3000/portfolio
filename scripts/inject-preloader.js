@@ -14,6 +14,7 @@ if (html.includes('id="preloader"')) {
   process.exit(0)
 }
 
+const SITE = 'https://jorge-calcerrada.expo.app'
 const J_PATH = 'M26 15H46M41 15V37C41 47 35.5 52 28 52C21.5 52 17.5 48.5 16 43'
 
 const head = `
@@ -21,6 +22,17 @@ const head = `
     <meta property="og:title" content="Jorge Calcerrada · Desarrollador" />
     <meta property="og:description" content="Proyectos, tecnologías y trayectoria de Jorge Calcerrada, desarrollador de aplicaciones multiplataforma." />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="${SITE}/" />
+    <meta property="og:image" content="${SITE}/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Jorge Calcerrada · Desarrollador de Aplicaciones Multiplataforma" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:locale:alternate" content="en_GB" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Jorge Calcerrada · Desarrollador" />
+    <meta name="twitter:description" content="Proyectos, tecnologías y trayectoria de Jorge Calcerrada, desarrollador de aplicaciones multiplataforma." />
+    <meta name="twitter:image" content="${SITE}/og-image.jpg" />
     <style>
       #preloader{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;background:#080c18;color:#e8eaf2;font-family:Inter,system-ui,-apple-system,'Segoe UI',sans-serif;overflow:hidden;transition:opacity .7s ease,transform .9s cubic-bezier(.76,0,.24,1),visibility .9s}
       #preloader.is-hiding{opacity:0;transform:translateY(-6%) scale(1.04);visibility:hidden;pointer-events:none}

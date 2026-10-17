@@ -1,13 +1,15 @@
 import { StyleSheet, View, type LayoutChangeEvent } from 'react-native'
 import { Pop } from '../anim'
 import { Card, Chip, Reveal, Section, Txt } from './ui'
-import { skills } from '../data/profile'
+import { useLang } from '../i18n'
 
 export function Skills({ onLayout }: { onLayout: (id: string, e: LayoutChangeEvent) => void }) {
+  const { t } = useLang()
+  const s = t.skillsSection
   return (
-    <Section id="tecnologias" eyebrow="Tecnologías" title="Mi caja de herramientas" subtitle="Con lo que trabajo habitualmente y lo que estoy aprendiendo." onLayout={onLayout}>
+    <Section id="tecnologias" eyebrow={s.eyebrow} title={s.title} subtitle={s.subtitle} onLayout={onLayout}>
       <View style={styles.grid}>
-        {skills.map((g, i) => (
+        {t.skills.map((g, i) => (
           <Reveal key={g.group} delay={i * 80} style={{ flexGrow: 1, flexBasis: 250 }}>
             <Card style={{ padding: 24, flex: 1 }}>
               <Txt size={16} weight="bold" style={{ marginBottom: 14 }}>

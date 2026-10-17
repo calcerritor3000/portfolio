@@ -4,7 +4,8 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { Appear, Blink, Blob, Float, Pulse, ReadyContext, Reveal, useCountUp } from '../anim'
 import { GitHubIcon, LinkedInIcon, MailIcon } from './Icons'
 import { Button, Card, Container, open3D, openUrl, Txt } from './ui'
-import { profile, stats } from '../data/profile'
+import { links } from '../data/content'
+import { useLang } from '../i18n'
 import { font, useLayout, useTheme } from '../theme'
 
 const CODE = {
@@ -19,18 +20,26 @@ const CODE = {
 type Token = [color: string, text: string]
 const base = (text: string): Token => [CODE.base, text]
 
-const LINES: Token[][] = [
-  [[CODE.k, 'const '], [CODE.v, 'jorge'], base(' = {')],
-  [base('  '), [CODE.p, 'rol'], base(': '), [CODE.s, "'Desarrollador DAM'"], base(',')],
-  [base('  '), [CODE.p, 'ciudad'], base(': '), [CODE.s, "'Valencia'"], base(',')],
-  [base('  '), [CODE.p, 'stack'], base(': [')],
-  [base('    '), [CODE.s, "'React'"], base(', '), [CODE.s, "'TypeScript'"], base(',')],
-  [base('    '), [CODE.s, "'Node.js'"], base(', '), [CODE.s, "'React Native'"], base(',')],
-  [base('  ],')],
-  [base('  '), [CODE.p, 'disponible'], base(': '), [CODE.b, 'true'], base(',')],
-  [base('  '), [CODE.p, 'buscando'], base(': '), [CODE.s, "'mi primer equipo'"], base(',')],
-  [base('}')],
-]
+const CODE_KEYS = {
+  es: { obj: 'jorge', role: 'rol', roleVal: "'Desarrollador DAM'", city: 'ciudad', stack: 'stack', avail: 'disponible', look: 'buscando', lookVal: "'mi primer equipo'" },
+  en: { obj: 'jorge', role: 'role', roleVal: "'DAM Developer'", city: 'city', stack: 'stack', avail: 'available', look: 'lookingFor', lookVal: "'my first team'" },
+}
+
+function codeLines(lang: 'es' | 'en'): Token[][] {
+  const k = CODE_KEYS[lang]
+  return [
+    [[CODE.k, 'const '], [CODE.v, k.obj], base(' = {')],
+    [base('  '), [CODE.p, k.role], base(': '), [CODE.s, k.roleVal], base(',')],
+    [base('  '), [CODE.p, k.city], base(': '), [CODE.s, "'Valencia'"], base(',')],
+    [base('  '), [CODE.p, k.stack], base(': [')],
+    [base('    '), [CODE.s, "'React'"], base(', '), [CODE.s, "'TypeScript'"], base(',')],
+    [base('    '), [CODE.s, "'Node.js'"], base(', '), [CODE.s, "'React Native'"], base(',')],
+    [base('  ],')],
+    [base('  '), [CODE.p, k.avail], base(': '), [CODE.b, 'true'], base(',')],
+    [base('  '), [CODE.p, k.look], base(': '), [CODE.s, k.lookVal], base(',')],
+    [base('}')],
+  ]
+}
 
 function CodeText({ color, text }: { color: string; text: string }) {
   return (
@@ -41,6 +50,8 @@ function CodeText({ color, text }: { color: string; text: string }) {
 }
 
 function CodeCard({ ready }: { ready: boolean }) {
+  const { lang } = useLang()
+  const LINES = codeLines(lang)
   return (
     <Appear show={ready} dir="right" distance={60} delay={500} duration={1000}>
       <Float amplitude={7} duration={3600}>
@@ -115,19 +126,11 @@ function StatCell({ value, label, width, index }: { value: string; label: string
   )
 }
 
-const TITLE: { text: string; accent?: boolean }[] = [
-  { text: 'Hola,' },
-  { text: 'soy' },
-  { text: 'Jorge.', accent: true },
-  { text: 'Creo' },
-  { text: 'software' },
-  { text: 'que' },
-  { text: 'funciona.' },
-]
 
 export function Hero({ onNavigate }: { onNavigate: (id: string) => void }) {
   const { colors } = useTheme()
   const { isMobile, isDesktop } = useLayout()
+  const { t } = useLang()
   const ready = useContext(ReadyContext)
   const titleSize = isMobile ? 38 : 62
   const titleLine = isMobile ? 44 : 68
@@ -150,8 +153,8 @@ export function Hero({ onNavigate }: { onNavigate: (id: string) => void }) {
             <View style={styles.intro}>
               <LinearGradient colors={[colors.accent, colors.accent2]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.avatarRing}>
                 <Image
-                  source={require('../../assets/jorge.jpg')}
-                  accessibilityLabel="Foto de Jorge Calcerrada"
+                  source={links.photo}
+                  accessibilityLabel={t.ui.photoAlt}
                   resizeMode="cover"
                   style={[styles.avatar, { borderColor: colors.bg }]}
                 />
@@ -159,24 +162,24 @@ export function Hero({ onNavigate }: { onNavigate: (id: string) => void }) {
               <View style={[styles.badge, { backgroundColor: colors.surface, borderColor: colors.border, flexShrink: 1 }]}>
                 <Pulse color={colors.success} />
                 <Txt size={13.5} muted style={{ flexShrink: 1 }}>
-                  {profile.availability}
+                  {t.profile.availability}
                 </Txt>
               </View>
             </View>
           </Appear>
 
           <View style={[styles.title, { columnGap: isMobile ? 9 : 16 }]}>
-            {TITLE.map((w, i) => (
-              <Fragment key={w.text}>
-              {i === 3 && <View style={{ width: '100%', height: 0 }} />}
+            {t.hero.title.map((w, i) => (
+              <Fragment key={w + i}>
+              {i === t.hero.breakBefore && <View style={{ width: '100%', height: 0 }} />}
               <Appear show={ready} dir="up" distance={40} delay={250 + i * 90} duration={800}>
                 <Txt
                   size={titleSize}
                   weight="extrabold"
-                  color={w.accent ? colors.accent : undefined}
+                  color={i === t.hero.accentIndex ? colors.accent : undefined}
                   style={{ lineHeight: titleLine, letterSpacing: isMobile ? -1 : -2 }}
                 >
-                  {w.text}
+                  {w}
                 </Txt>
               </Appear>
               </Fragment>
@@ -186,22 +189,22 @@ export function Hero({ onNavigate }: { onNavigate: (id: string) => void }) {
           <Appear show={ready} dir="up" delay={950}>
             <Txt size={17} muted style={{ maxWidth: 560 }}>
               <Txt size={17} weight="semibold">
-                {profile.role}
-              </Txt>{' '}
-              en {profile.location}. {profile.intro}
+                {t.profile.role}
+              </Txt>
+              {' · ' + links.location + '. ' + t.profile.intro}
             </Txt>
           </Appear>
           <Appear show={ready} dir="up" delay={1100} style={styles.actions}>
-            <Button label="🧊 Explorar en 3D" variant="primary" onPress={open3D} />
-            <Button label="Ver proyectos" onPress={() => onNavigate('proyectos')} />
-            <Button label="Descargar CV" onPress={() => openUrl(profile.cv)} />
-            <Button label="Escríbeme" icon={<MailIcon size={18} color={colors.text} />} onPress={() => openUrl(`mailto:${profile.email}`)} />
+            <Button label={t.ui.explore3d} variant="primary" onPress={open3D} />
+            <Button label={t.ui.seeProjects} onPress={() => onNavigate('proyectos')} />
+            <Button label={t.ui.downloadCv} onPress={() => openUrl(links.cv)} />
+            <Button label={t.ui.writeMe} icon={<MailIcon size={18} color={colors.text} />} onPress={() => onNavigate('contacto')} />
           </Appear>
           <Appear show={ready} dir="up" delay={1250} style={styles.socials}>
-            <SocialButton label="GitHub" url={profile.github}>
+            <SocialButton label="GitHub" url={links.github}>
               <GitHubIcon color={colors.muted} />
             </SocialButton>
-            <SocialButton label="LinkedIn" url={profile.linkedin}>
+            <SocialButton label="LinkedIn" url={links.linkedin}>
               <LinkedInIcon color={colors.muted} />
             </SocialButton>
           </Appear>
@@ -214,7 +217,7 @@ export function Hero({ onNavigate }: { onNavigate: (id: string) => void }) {
       <Container style={{ marginTop: 56 }}>
         <Reveal dir="scale">
           <Card lift={4} style={styles.stats}>
-            {stats.map((s, i) => (
+            {t.stats.map((s, i) => (
               <StatCell key={s.label} value={s.value} label={s.label} width={isMobile ? '50%' : '25%'} index={i} />
             ))}
           </Card>

@@ -1,44 +1,53 @@
-import { createElement, useState } from 'react'
+import { createElement } from 'react'
 import { Platform, StyleSheet, View, type LayoutChangeEvent } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Blob, Float, Pop, Reveal } from '../anim'
 import { ArrowIcon, GitHubIcon } from './Icons'
 import { Button, Chip, Container, openUrl, Txt } from './ui'
-import { projects } from '../data/profile'
+import { useLang } from '../i18n'
 import { useLayout, useTheme } from '../theme'
 
-const taskorit = projects.find((p) => p.title === 'Taskorit')
-
-/** Vídeo HTML nativo: en web react-native-web renderiza elementos del DOM tal cual. */
-export function PromoVideo({ src, width, showSound = true }: { src: string; width: number; showSound?: boolean }) {
-  const [muted, setMuted] = useState(true)
+/**
+ * Vídeo HTML nativo (en web react-native-web renderiza elementos del DOM tal cual).
+ * El anuncio no tiene audio, así que va siempre silenciado y en bucle, con portada mientras carga.
+ */
+export function PromoVideo({ src, poster, label, width, scanlines = false }: { src: string; poster?: string; label: string; width: number; scanlines?: boolean }) {
   if (Platform.OS !== 'web') return null
   return (
     <View style={[styles.phone, { width, height: (width * 16) / 9 }]}>
       {createElement('video', {
         src,
+        poster,
         autoPlay: true,
-        muted,
+        muted: true,
         loop: true,
         playsInline: true,
-        controls: !muted,
         preload: 'metadata',
-        'aria-label': 'Anuncio de Taskorit',
+        'aria-label': label,
         style: { width: '100%', height: '100%', objectFit: 'cover', display: 'block', backgroundColor: '#000' },
       })}
-      {showSound && muted && (
-        <View style={styles.soundBtn}>
-          <Button small variant="light" label="🔊 Activar sonido" onPress={() => setMuted(false)} />
-        </View>
-      )}
+      {scanlines &&
+        createElement('div', {
+          'aria-hidden': true,
+          style: {
+            position: 'absolute',
+            inset: 0,
+            pointerEvents: 'none',
+            background: 'repeating-linear-gradient(0deg, rgba(103,232,249,0.07) 0 2px, transparent 2px 5px)',
+            mixBlendMode: 'screen',
+          },
+        })}
     </View>
   )
 }
 
 export function Spotlight({ onLayout }: { onLayout: (id: string, e: LayoutChangeEvent) => void }) {
   const { colors } = useTheme()
+  const { t } = useLang()
   const { isDesktop, isMobile } = useLayout()
+  const taskorit = t.projects.find((p) => p.id === 'taskorit')
   if (!taskorit?.video) return null
+  const s = t.spotlight
 
   return (
     <View onLayout={(e) => onLayout('taskorit', e)}>
@@ -55,23 +64,22 @@ export function Spotlight({ onLayout }: { onLayout: (id: string, e: LayoutChange
 
             <View style={{ flex: isDesktop ? 1 : undefined, justifyContent: 'center', gap: 14 }}>
               <View style={styles.badges}>
-                <Chip label="✨ Nuevo" accent />
+                <Chip label={s.badge} accent />
                 <Txt size={13} color="rgba(255,255,255,0.7)">
-                  Mi app destacada
+                  {s.kicker}
                 </Txt>
               </View>
               <Txt size={isMobile ? 40 : 58} weight="extrabold" color="#fff" style={{ letterSpacing: -2, lineHeight: isMobile ? 46 : 62 }}>
                 Taskorit
               </Txt>
               <Txt size={isMobile ? 19 : 22} weight="semibold" color="#a5b4fc" style={{ lineHeight: isMobile ? 26 : 30 }}>
-                Tu día organizado, de un vistazo.
+                {s.tagline}
               </Txt>
               <Txt color="rgba(255,255,255,0.8)" style={{ maxWidth: 480 }}>
-                Tareas, horario semanal y rachas en una sola app. Funciona en Android, iOS y web, se instala como PWA y tus
-                datos se quedan en tu dispositivo.
+                {s.text}
               </Txt>
               <View style={styles.chips}>
-                {['Tareas inteligentes', 'Horario semanal', 'Rachas 🔥', 'Modo oscuro', 'Sin cuentas'].map((f, i) => (
+                {s.features.map((f, i) => (
                   <Pop key={f} index={i}>
                     <View style={styles.feature}>
                       <Txt size={13} weight="medium" color="#fff" style={{ lineHeight: 18 }}>
@@ -83,15 +91,10 @@ export function Spotlight({ onLayout }: { onLayout: (id: string, e: LayoutChange
               </View>
               <View style={styles.actions}>
                 {taskorit.demo && (
-                  <Button
-                    variant="primary"
-                    label="Probar Taskorit gratis"
-                    icon={<ArrowIcon color="#fff" />}
-                    onPress={() => openUrl(taskorit.demo!)}
-                  />
+                  <Button variant="primary" label={s.cta} icon={<ArrowIcon color="#fff" />} onPress={() => openUrl(taskorit.demo!)} />
                 )}
                 {taskorit.repo && (
-                  <Button variant="ghost" label="Ver código" icon={<GitHubIcon size={18} color="#fff" />} onPress={() => openUrl(taskorit.repo!)} />
+                  <Button variant="ghost" label={t.ui.seeCode} icon={<GitHubIcon size={18} color="#fff" />} onPress={() => openUrl(taskorit.repo!)} />
                 )}
               </View>
             </View>
@@ -99,7 +102,7 @@ export function Spotlight({ onLayout }: { onLayout: (id: string, e: LayoutChange
             <View style={{ flex: isDesktop ? 0.8 : undefined, alignItems: 'center', justifyContent: 'center', marginTop: isDesktop ? 0 : 12 }}>
               <Float amplitude={8} duration={3400}>
                 <View style={[styles.glow, { shadowColor: colors.accent }]}>
-                  <PromoVideo src={taskorit.video} width={isMobile ? 240 : 290} />
+                  <PromoVideo src={taskorit.video} poster={taskorit.poster} label={s.videoLabel} width={isMobile ? 240 : 290} scanlines />
                 </View>
               </Float>
             </View>
@@ -125,5 +128,4 @@ const styles = StyleSheet.create({
   actions: { flexDirection: 'row', flexWrap: 'wrap', gap: 12, marginTop: 10 },
   phone: { borderRadius: 34, borderWidth: 7, borderColor: '#0b0f1e', overflow: 'hidden', backgroundColor: '#000' },
   glow: { borderRadius: 34, shadowOffset: { width: 0, height: 24 }, shadowOpacity: 0.6, shadowRadius: 50 },
-  soundBtn: { position: 'absolute', left: 0, right: 0, bottom: 14, alignItems: 'center' },
 })
