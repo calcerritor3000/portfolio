@@ -16,7 +16,8 @@ import {
 } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Reveal } from '../anim'
-import { font, MAX_WIDTH, useLayout, useTheme } from '../theme'
+import { track } from '../analytics'
+import { font, fontWeight, MAX_WIDTH, useLayout, useTheme } from '../theme'
 
 export { Reveal }
 
@@ -37,11 +38,24 @@ export function Txt({ size = 16, weight = 'regular', muted, color, style, ...res
     <Text
       {...rest}
       style={[
-        { fontFamily: font[weight], fontSize: size, lineHeight: size * 1.55, color: color ?? (muted ? colors.muted : colors.text) },
+        { fontFamily: font[weight], fontWeight: fontWeight[weight], fontSize: size, lineHeight: size * 1.55, color: color ?? (muted ? colors.muted : colors.text) },
         style,
       ]}
     />
   )
+}
+
+/** Nombre legible del enlace para las estadísticas (cv, email, linkedin, github/repo...). */
+function linkName(url: string) {
+  if (url.startsWith('mailto:')) return 'email'
+  if (url.includes('.pdf')) return 'cv'
+  if (url.includes('linkedin.com')) return 'linkedin'
+  try {
+    const u = new URL(url)
+    return (u.hostname.replace('www.', '') + u.pathname).replace(/\/$/, '')
+  } catch {
+    return url
+  }
 }
 
 /**
@@ -49,6 +63,7 @@ export function Txt({ size = 16, weight = 'regular', muted, color, style, ...res
  * para que la página abierta no pueda acceder a `window.opener` (reverse tabnabbing).
  */
 export function openUrl(url: string) {
+  track(`clic: ${linkName(url)}`)
   if (Platform.OS === 'web') {
     // mailto: se abre en la misma pestaña (con _blank dejaría una pestaña vacía)
     if (url.startsWith('mailto:')) window.location.href = url
@@ -67,6 +82,7 @@ export function openUrl(url: string) {
 /** Abre el portafolio 3D (otra app, publicada en /3d/ del mismo dominio) en la misma pestaña. */
 export const PORTFOLIO_3D_URL = '/3d/'
 export function open3D() {
+  track('clic: portafolio-3d')
   if (Platform.OS === 'web') window.location.href = PORTFOLIO_3D_URL
   else void Linking.openURL('https://jorge-calcerrada.expo.app' + PORTFOLIO_3D_URL)
 }

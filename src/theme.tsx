@@ -99,12 +99,17 @@ export function useLayout() {
   return { width, isMobile: width < 720, isDesktop: width >= 900 }
 }
 
+// Inter en WOFF2 servida desde /fonts (ver scripts/inject-preloader.js): ~120 KB en total y con font-display: swap,
+// así el texto se pinta al instante con la fuente del sistema y cambia a Inter en cuanto llega.
+const INTER = "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif"
+export const fontWeight = { regular: '400', medium: '500', semibold: '600', bold: '700', extrabold: '800' } as const
+
 export const font = {
-  regular: 'Inter_400Regular',
-  medium: 'Inter_500Medium',
-  semibold: 'Inter_600SemiBold',
-  bold: 'Inter_700Bold',
-  extrabold: 'Inter_800ExtraBold',
+  regular: INTER,
+  medium: INTER,
+  semibold: INTER,
+  bold: INTER,
+  extrabold: INTER,
   mono: Platform.select({ web: "ui-monospace, 'Cascadia Code', Consolas, monospace", default: 'monospace' }),
 }
 

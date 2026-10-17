@@ -1,13 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Animated, ScrollView, View, type LayoutChangeEvent, type NativeScrollEvent, type NativeSyntheticEvent } from 'react-native'
-import {
-  Inter_400Regular,
-  Inter_500Medium,
-  Inter_600SemiBold,
-  Inter_700Bold,
-  Inter_800ExtraBold,
-  useFonts,
-} from '@expo-google-fonts/inter'
 import { StatusBar } from 'expo-status-bar'
 import { About } from './components/About'
 import { Contact } from './components/Contact'
@@ -79,18 +71,11 @@ function Portfolio() {
 
 export default function App() {
   const [ready, setReady] = useState(false)
-  const [loaded] = useFonts({
-    Inter_400Regular,
-    Inter_500Medium,
-    Inter_600SemiBold,
-    Inter_700Bold,
-    Inter_800ExtraBold,
-  })
+  // Las fuentes ya no bloquean el primer pintado (font-display: swap): se retira la pantalla de carga al montar
   useEffect(() => {
-    if (loaded) void hidePreloader().then(() => setReady(true))
-  }, [loaded])
+    void hidePreloader().then(() => setReady(true))
+  }, [])
 
-  if (!loaded) return null
   return (
     <ThemeProvider>
       <LangProvider>

@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { Platform } from 'react-native'
+import { track } from './analytics'
 import { content, type Content, type Lang } from './data/content'
 
 const STORAGE_KEY = 'lang'
@@ -35,6 +36,7 @@ export function LangProvider({ children }: { children: ReactNode }) {
   const toggleLang = useCallback(() => {
     setLang((prev) => {
       const next: Lang = prev === 'es' ? 'en' : 'es'
+      track(`idioma: ${next}`)
       if (Platform.OS === 'web') {
         try {
           localStorage.setItem(STORAGE_KEY, next)

@@ -53,7 +53,7 @@ function CodeCard({ ready }: { ready: boolean }) {
   const { lang } = useLang()
   const LINES = codeLines(lang)
   return (
-    <Appear show={ready} dir="right" distance={60} delay={500} duration={1000}>
+    <Appear show={ready} dir="right" distance={60} delay={300} duration={900}>
       <Float amplitude={7} duration={3600}>
         <View style={styles.code} accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
           <View style={styles.codeBar}>
@@ -66,7 +66,7 @@ function CodeCard({ ready }: { ready: boolean }) {
           </View>
           <View style={{ padding: 22 }}>
             {LINES.map((line, i) => (
-              <Appear key={i} show={ready} dir="left" distance={14} delay={1100 + i * 150} duration={400}>
+              <Appear key={i} show={ready} dir="left" distance={14} delay={800 + i * 120} duration={400}>
                 <View style={{ flexDirection: 'row' }}>
                   {line.map(([color, text], j) => (
                     <CodeText key={j} color={color} text={text} />
@@ -172,7 +172,7 @@ export function Hero({ onNavigate }: { onNavigate: (id: string) => void }) {
             {t.hero.title.map((w, i) => (
               <Fragment key={w + i}>
               {i === t.hero.breakBefore && <View style={{ width: '100%', height: 0 }} />}
-              <Appear show={ready} dir="up" distance={40} delay={250 + i * 90} duration={800}>
+              <Appear show={ready} dir="up" distance={40} delay={120 + i * 70} duration={700}>
                 <Txt
                   size={titleSize}
                   weight="extrabold"
@@ -186,7 +186,7 @@ export function Hero({ onNavigate }: { onNavigate: (id: string) => void }) {
             ))}
           </View>
 
-          <Appear show={ready} dir="up" delay={950}>
+          <Appear show={ready} dir="up" delay={420} duration={600}>
             <Txt size={17} muted style={{ maxWidth: 560 }}>
               <Txt size={17} weight="semibold">
                 {t.profile.role}
@@ -194,13 +194,13 @@ export function Hero({ onNavigate }: { onNavigate: (id: string) => void }) {
               {' · ' + links.location + '. ' + t.profile.intro}
             </Txt>
           </Appear>
-          <Appear show={ready} dir="up" delay={1100} style={styles.actions}>
+          <Appear show={ready} dir="up" delay={560} style={styles.actions}>
             <Button label={t.ui.explore3d} variant="primary" onPress={open3D} />
             <Button label={t.ui.seeProjects} onPress={() => onNavigate('proyectos')} />
             <Button label={t.ui.downloadCv} onPress={() => openUrl(links.cv)} />
             <Button label={t.ui.writeMe} icon={<MailIcon size={18} color={colors.text} />} onPress={() => onNavigate('contacto')} />
           </Appear>
-          <Appear show={ready} dir="up" delay={1250} style={styles.socials}>
+          <Appear show={ready} dir="up" delay={680} style={styles.socials}>
             <SocialButton label="GitHub" url={links.github}>
               <GitHubIcon color={colors.muted} />
             </SocialButton>

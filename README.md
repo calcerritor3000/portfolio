@@ -1,5 +1,7 @@
 # Portfolio · Jorge Calcerrada 👨‍💻
 
+[![CI](https://github.com/calcerritor3000/portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/calcerritor3000/portfolio/actions/workflows/ci.yml)
+
 Mi web personal: quién soy, qué proyectos he hecho y cómo contactarme.
 Es una página de una sola vista, **responsive**, **bilingüe (ES/EN)** y con **modo oscuro**, hecha con **Expo (React Native para web) + TypeScript**
 y publicada gratis con **EAS Hosting**.
@@ -40,6 +42,15 @@ y publicada gratis con **EAS Hosting**.
   <img src="docs/screenshots/holograma-3d.jpg" width="420" alt="Holograma de Taskorit en el portafolio 3D" />
 </p>
 
+## ⚡ Rendimiento (Lighthouse)
+
+| | Rendimiento | Accesibilidad | Buenas prácticas | SEO |
+|---|:-:|:-:|:-:|:-:|
+| Escritorio | 99 | 100 | 96 | 100 |
+| Móvil (simulado lento) | ~77 | 100 | 96 | 100 |
+
+Peso inicial de la página: **~420 KB** (fuentes Inter en WOFF2 autoalojadas, foto optimizada y vídeo que solo se descarga al acercarse).
+
 ## 🛠️ Tecnologías
 
 | | |
@@ -61,6 +72,9 @@ y publicada gratis con **EAS Hosting**.
 - **Iconos SVG propios** con `react-native-svg`, para no cargar librerías de iconos.
 - **Animaciones sin librerías**: todo con `Animated` de React Native y `IntersectionObserver`, reunido en `src/anim.tsx`. Respeta `prefers-reduced-motion`.
 - **Pantalla de carga en el HTML**: como en web la app tarda en arrancar, un script posterior a `expo export` mete en `index.html` una J animada en CSS puro, así se ve desde el primer instante.
+- **Rendimiento**: fuentes WOFF2 con `font-display: swap` (no bloquean el primer pintado), vídeo cargado bajo demanda con `IntersectionObserver`, imágenes redimensionadas, `robots.txt` y `sitemap.xml`.
+- **Estadísticas sin cookies** (opcional): GoatCounter registra visitas y clics (CV, LinkedIn, demos, 3D, idioma, formulario). Se activa poniendo el código de la cuenta en `analytics.json`.
+- **Integración continua**: GitHub Actions pasa lint, tipos y build en cada push.
 - **Despliegue con un comando**: `npm run deploy` exporta la web y la publica con EAS Hosting.
 
 ## 📁 Estructura
@@ -70,7 +84,9 @@ y publicada gratis con **EAS Hosting**.
 ├── assets/                        # Favicon PNG e imágenes de proyectos
 ├── public/                        # Favicon SVG, CV en PDF, anuncio de Taskorit (mp4 + portada), imagen para compartir
 │   └── 3d/                        # Build del Portafolio 3D (se genera con npm run sync:3d)
-├── scripts/inject-preloader.js    # Inserta la pantalla de carga en dist/index.html
+├── analytics.json                 # Código de GoatCounter (vacío = estadísticas desactivadas)
+├── scripts/inject-preloader.js    # Pantalla de carga, fuentes, metadatos para compartir
+├── scripts/inject-analytics.js    # Contador de visitas (si hay código en analytics.json)
 └── src/
     ├── components/                # Header, Hero, About, Spotlight, Projects, Skills, Journey, Contact, ui…
     ├── data/content.ts            # Todos los textos y datos, en español e inglés

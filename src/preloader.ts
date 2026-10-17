@@ -1,5 +1,5 @@
 /** Tiempo mínimo que se ve la pantalla de carga, para que la J alcance a dibujarse entera. */
-const MIN_VISIBLE_MS = 2100
+const MIN_VISIBLE_MS = 1250
 
 /**
  * Retira la pantalla de carga que `scripts/inject-preloader.js` mete en el HTML.

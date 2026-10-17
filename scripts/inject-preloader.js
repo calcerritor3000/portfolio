@@ -33,7 +33,14 @@ const head = `
     <meta name="twitter:title" content="Jorge Calcerrada · Desarrollador" />
     <meta name="twitter:description" content="Proyectos, tecnologías y trayectoria de Jorge Calcerrada, desarrollador de aplicaciones multiplataforma." />
     <meta name="twitter:image" content="${SITE}/og-image.jpg" />
+    <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin />
     <style>
+      @font-face{font-family:Inter;font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/inter-latin-400-normal.woff2) format('woff2')}
+      @font-face{font-family:Inter;font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/inter-latin-500-normal.woff2) format('woff2')}
+      @font-face{font-family:Inter;font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/inter-latin-600-normal.woff2) format('woff2')}
+      @font-face{font-family:Inter;font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/inter-latin-700-normal.woff2) format('woff2')}
+      @font-face{font-family:Inter;font-style:normal;font-weight:800;font-display:swap;src:url(/fonts/inter-latin-800-normal.woff2) format('woff2')}
       #preloader{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;background:#080c18;color:#e8eaf2;font-family:Inter,system-ui,-apple-system,'Segoe UI',sans-serif;overflow:hidden;transition:opacity .7s ease,transform .9s cubic-bezier(.76,0,.24,1),visibility .9s}
       #preloader.is-hiding{opacity:0;transform:translateY(-6%) scale(1.04);visibility:hidden;pointer-events:none}
       #preloader .pl-glow{position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(91,91,240,.35),rgba(6,182,212,.12) 55%,transparent 70%);filter:blur(30px);animation:pl-breathe 3.2s ease-in-out infinite}
@@ -41,9 +48,9 @@ const head = `
       #preloader .pl-ring{position:absolute;inset:0;border-radius:32px;border:1.5px solid rgba(139,139,255,.35);background:rgba(16,22,42,.7);box-shadow:0 0 60px rgba(91,91,240,.35);animation:pl-ring .9s cubic-bezier(.2,.8,.2,1) both,pl-float 3.2s ease-in-out 1s infinite}
       #preloader .pl-spin{position:absolute;inset:-10px;border-radius:40px;background:conic-gradient(from 0deg,transparent 0 70%,#22d3ee 85%,#8b8bff 100%,transparent);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1.5px));mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1.5px));animation:pl-rot 2.4s linear infinite;opacity:.9}
       #preloader svg{position:relative;width:78px;height:78px;overflow:visible;filter:drop-shadow(0 0 14px rgba(139,139,255,.75))}
-      #preloader .pl-j{stroke-dasharray:1;stroke-dashoffset:1;animation:pl-draw 1.3s cubic-bezier(.65,0,.35,1) .35s forwards}
-      #preloader .pl-name{font-size:13px;font-weight:600;letter-spacing:.42em;text-transform:uppercase;color:#9aa4bd;opacity:0;animation:pl-fade .8s ease 1s forwards;padding-left:.42em}
-      #preloader .pl-bar{width:160px;height:3px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden;opacity:0;animation:pl-fade .6s ease .9s forwards}
+      #preloader .pl-j{stroke-dasharray:1;stroke-dashoffset:1;animation:pl-draw .95s cubic-bezier(.65,0,.35,1) .15s forwards}
+      #preloader .pl-name{font-size:13px;font-weight:600;letter-spacing:.42em;text-transform:uppercase;color:#9aa4bd;opacity:0;animation:pl-fade .6s ease .5s forwards;padding-left:.42em}
+      #preloader .pl-bar{width:160px;height:3px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden;opacity:0;animation:pl-fade .5s ease .45s forwards}
       #preloader .pl-bar i{display:block;height:100%;width:40%;border-radius:3px;background:linear-gradient(90deg,#8b8bff,#22d3ee);animation:pl-slide 1.15s cubic-bezier(.6,0,.4,1) infinite}
       @keyframes pl-draw{to{stroke-dashoffset:0}}
       @keyframes pl-fade{to{opacity:1}}

@@ -4,6 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { Blob } from '../anim'
 import { GitHubIcon, LinkedInIcon, MailIcon } from './Icons'
 import { Button, Container, openUrl, Reveal, Txt } from './ui'
+import { track } from '../analytics'
 import { links } from '../data/content'
 import { useLang } from '../i18n'
 import { font, useLayout } from '../theme'
@@ -32,6 +33,7 @@ function ContactForm() {
     if (Object.keys(next).length) return
     const body = `${message.trim()}\n\n— ${name.trim()} (${email.trim()})`
     openUrl(`mailto:${links.email}?subject=${encodeURIComponent(`${t.contact.subject}: ${name.trim()}`)}&body=${encodeURIComponent(body)}`)
+    track('formulario de contacto')
     setSent(true)
   }
 

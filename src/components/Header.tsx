@@ -70,7 +70,7 @@ export function Header({ active, onNavigate }: Props) {
         {width >= 560 && <Button small variant="primary" label="🧊 3D" onPress={open3D} />}
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel={t.ui.langSwitch}
+          accessibilityLabel={(lang === 'es' ? 'EN' : 'ES') + ' · ' + t.ui.langSwitch}
           onPress={toggleLang}
           style={[styles.iconBtn, { backgroundColor: colors.surface, borderColor: colors.border, width: 46 }]}
         >

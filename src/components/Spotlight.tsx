@@ -1,4 +1,4 @@
-import { createElement } from 'react'
+import { createElement, useEffect, useRef, useState } from 'react'
 import { Platform, StyleSheet, View, type LayoutChangeEvent } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Blob, Float, Pop, Reveal } from '../anim'
@@ -12,17 +12,36 @@ import { useLayout, useTheme } from '../theme'
  * El anuncio no tiene audio, así que va siempre silenciado y en bucle, con portada mientras carga.
  */
 export function PromoVideo({ src, poster, label, width, scanlines = false }: { src: string; poster?: string; label: string; width: number; scanlines?: boolean }) {
+  // El vídeo (1,9 MB) solo se descarga cuando está a punto de verse: hasta entonces se muestra la portada
+  const box = useRef<View>(null)
+  const [near, setNear] = useState(false)
+  useEffect(() => {
+    const el = box.current as unknown as Element | null
+    if (Platform.OS !== 'web' || !el || typeof IntersectionObserver === 'undefined') {
+      setNear(true)
+      return
+    }
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        setNear(true)
+        io.disconnect()
+      }
+    }, { rootMargin: '300px' })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
   if (Platform.OS !== 'web') return null
   return (
-    <View style={[styles.phone, { width, height: (width * 16) / 9 }]}>
+    <View ref={box} style={[styles.phone, { width, height: (width * 16) / 9 }]}>
       {createElement('video', {
-        src,
+        src: near ? src : undefined,
         poster,
         autoPlay: true,
         muted: true,
         loop: true,
         playsInline: true,
-        preload: 'metadata',
+        preload: near ? 'auto' : 'none',
         'aria-label': label,
         style: { width: '100%', height: '100%', objectFit: 'cover', display: 'block', backgroundColor: '#000' },
       })}
